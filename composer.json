@@ -1,6 +1,6 @@
 {
     "name": "netcommons/holidays",
-    "description": "Tags for NetCommons Plugin",
+    "description": "Holidays for NetCommons Plugin",
     "homepage": "http://www.netcommons.org/",
     "extra": {
         "installer-paths": {
@@ -24,14 +24,26 @@
     "license": "NetCommons License",
     "authors": [
         {
-          "name": "Ryuji AMANO (RYUS INC.)",
-          "email": "ryuji@ryus.co.jp",
-          "homepage": "http://ryus.co.jp/",
-          "role": "Developer"
+            "name": "Toshihide Hashimoto(AllCreator Co., Ltd.)",
+            "email": "info@allcreator.net",
+            "homepage": "http://allcreator.net",
+            "role": "Developer"
+        },
+        {
+            "name": "Minori Kikuchihara(AllCreator Co., Ltd.)",
+            "email": "info@allcreator.net",
+            "homepage": "http://allcreator.net",
+            "role": "Developer"
+        },
+        {
+            "name": "Rika Fujiwara(AllCreator Co., Ltd.)",
+            "email": "info@allcreator.net",
+            "homepage": "http://allcreator.net",
+            "role": "Developer"
         },
         {
             "name": "NetCommons Community",
-            "homepage": "https://github.com/NetCommons3/Tags/graphs/contributors"
+            "homepage": "https://github.com/NetCommons3/Holidays/graphs/contributors"
         }
     ],
     "type":        "cakephp-plugin",
