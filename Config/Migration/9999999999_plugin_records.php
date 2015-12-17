@@ -45,7 +45,7 @@ class PluginRecords extends NetCommonsMigration {
 			//日本語
 			array(
 				'language_id' => '2',
-				'key' => 'holiday',
+				'key' => 'holidays',
 				'namespace' => 'netcommons/holidays',
 				'name' => '祝日設定',
 				'type' => 2,
