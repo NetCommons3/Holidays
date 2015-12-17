@@ -1,10 +1,7 @@
 # Holidays
-
-=======
-
 Holidays Plugin For NetCommons3
 
-[![Build Status](https://travis-ci.org/NetCommons3/Holidays.svg?branch=master)](https://travis-ci.org/NetCommons3/Holidays
+[![Build Status](https://travis-ci.org/NetCommons3/Holidays.svg?branch=master)](https://travis-ci.org/NetCommons3/Holidays)
 [![Coverage Status](https://img.shields.io/coveralls/NetCommons3/Holidays.svg)](https://coveralls.io/r/NetCommons3/Holidays?branch=master)
 
 | dependencies | status |
