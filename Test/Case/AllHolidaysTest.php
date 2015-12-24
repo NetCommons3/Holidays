@@ -7,6 +7,7 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+App::uses('NetCommonsTestSuite', 'NetCommons.TestSuite');
 
 /**
  * Holidays All Test Suite
@@ -15,7 +16,7 @@
  * @package NetCommons\Holidays\Test\Case
  * @codeCoverageIgnore
  */
-class AllHolidaysTest extends CakeTestSuite {
+class AllHolidaysTest extends NetCommonsTestSuite {
 
 /**
  * All test suite
@@ -25,7 +26,7 @@ class AllHolidaysTest extends CakeTestSuite {
 	public static function suite() {
 		$plugin = preg_replace('/^All([\w]+)Test$/', '$1', __CLASS__);
 		$suite = new CakeTestSuite(sprintf('All %s Plugin tests', $plugin));
-		//$suite->addTestDirectoryRecursive(CakePlugin::path($plugin) . 'Test' . DS . 'Case');
+		$suite->addTestDirectoryRecursive(CakePlugin::path($plugin) . 'Test' . DS . 'Case');
 		return $suite;
 	}
 }

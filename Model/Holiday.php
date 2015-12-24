@@ -136,10 +136,11 @@ class Holiday extends HolidaysAppModel {
 	public function getHoliday($from, $to) {
 		$holidays = $this->find('all', array(
 			'conditions' => array(
+				'language_id' => Current::read('Language.id'),
 				'holiday >=' => $from,
-				'holiday <=' => $to,
-				'language_id' => Current::read('Language.id')),
-			'recursive' => -1
+				'holiday <=' => $to),
+			'recursive' => -1,
+			'order' => array('holiday')
 		));
 		return $holidays;
 	}
@@ -149,7 +150,7 @@ class Holiday extends HolidaysAppModel {
  * 指定された年の祝日日付を返す
  * getHolidayのラッパー関数 YYYYに年始まりの日付と最終日付を付与してgetHolidayを呼び出す
  *
- * @param string $year 指定年（西暦）‘YYYY’ 形式の文字列　UTCを期待
+ * @param string $year 指定年（西暦）‘YYYY’ 形式の文字列 ユーザーのタイムゾーンでの年を期待
  * @return array期間内のholidayテーブルのデータ配列が返る
  */
 	public function getHolidayInYear($year = null) {
@@ -158,8 +159,8 @@ class Holiday extends HolidaysAppModel {
 			// 未設定時は現在年
 			$year = CakeTime::format((new NetCommonsTime())->getNowDatetime(), '%Y');
 		}
-		$from = $year . '-01-01 00:00:00';
-		$to = $year . '-12-31 23:59:59';
+		$from = (new NetCommonsTime)->toServerDatetime($year . '-01-01 00:00:00 ', Current::read('User.timezone'));
+		$to = (new NetCommonsTime)->toServerDatetime($year . '-12-31 23:59:59 ', Current::read('User.timezone'));
 		$holidays = $this->getHoliday($from, $to);
 		return $holidays;
 	}
@@ -174,12 +175,7 @@ class Holiday extends HolidaysAppModel {
 	public function extractHoliday($days) {
 		$holidays = array();
 		foreach ($days as $day) {
-			$ret = $this->find('all', array(
-				'conditions' => array(
-					CakeTime::dayAsSql($day, 'holiday'),
-					'language_id' => Current::read('Language.id')),
-				'recursive' => -1
-			));
+			$ret = $this->isHoliday($day);
 			if ($ret) {
 				$holidays[] = $day;
 			}
