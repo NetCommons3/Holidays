@@ -19,7 +19,7 @@ App::uses('NetCommonsGetTest', 'NetCommons.TestSuite');
  * @author Allcreator <info@allcreator.net>
  * @package NetCommons\Holidays\Test\Case\Model\Holiday
  */
-class HolidayxtractHolidayTest extends NetCommonsGetTest {
+class HolidayExtractHolidayTest extends NetCommonsGetTest {
 
 /**
  * Fixtures
