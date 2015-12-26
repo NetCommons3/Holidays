@@ -22,6 +22,7 @@ $pickerOpt = str_replace('"', "'", json_encode(array(
 	array(
 		'div' => false,
 		'label' => false,
+		'type' => 'text',
 		'datetimepicker' => 'datetimepicker',
 		'datetimepicker-options' => $pickerOpt,
 		'value' => (empty($year)) ? '' : intval($year),

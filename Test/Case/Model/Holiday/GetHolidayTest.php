@@ -81,10 +81,10 @@ class HolidayGetHolidayTest extends NetCommonsGetTest {
  * @return array
  */
 	public function dataProviderGet() {
-		$existFrom = date('Y-m-d H:i:s', strtotime('2016-01-01 00:00:00 GMT+09:00'));
-		$existTo = date('Y-m-d H:i:s', strtotime('2016-01-31 00:00:00 GMT+09:00'));
-		$notExistFrom = date('Y-m-d H:i:s', strtotime('2017-01-01 00:00:00 GMT+09:00'));
-		$notExistTo = date('Y-m-d H:i:s', strtotime('2017-01-31 00:00:00 GMT+09:00'));
+		$existFrom = '2015-01-01';
+		$existTo = '2015-01-31';
+		$notExistFrom = '2017-01-01';
+		$notExistTo = '2017-01-31';
 
 		return array(
 			array($existFrom, $existTo, array('2', '4')), // this is 'id' value! 存在する

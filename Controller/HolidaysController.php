@@ -88,8 +88,14 @@ class HolidaysController extends HolidaysAppController {
  */
 	public function add() {
 		if ($this->request->isPost()) {
+			// 登録処理
+			if (! $this->HolidayRrule->saveHolidayRrule($this->request->data)) {
+				$this->NetCommons->handleValidationError($this->HolidayRrule->validationErrors);
+				return;
+			}
 			// 登録正常時
 			$this->redirect('/holidays/holidays/index/');
+			return;
 		}
 		// デフォルトデータ取り出し
 		$data = $this->HolidayRrule->create();
@@ -113,9 +119,16 @@ class HolidaysController extends HolidaysAppController {
  * @return void
  */
 	public function edit($rruleId = null) {
-		if ($this->request->isPost()) {
+		// EditのときはPUTでくる
+		if ($this->request->isPut()) {
+			// 登録処理
+			if (! $this->HolidayRrule->saveHolidayRrule($this->request->data)) {
+				$this->NetCommons->handleValidationError($this->HolidayRrule->validationErrors);
+				return;
+			}
 			// 登録正常時
 			$this->redirect('/holidays/holidays/index/');
+			return;
 		}
 		// ruleIdの指定がない場合エラー
 		// データ取り出し
@@ -146,7 +159,13 @@ class HolidaysController extends HolidaysAppController {
  */
 	public function delete($rruleId = null) {
 		// ruleIdの指定がない場合エラー
+		// FUJI
+
 		// 削除処理
+		// FUJI
+
+		// 画面再表示
+		// FUJI 削除しましたのFlashメッセージを設定してから
 		// 画面再表示
 		$this->redirect('/holidays/holidays/index/');
 	}

@@ -16,17 +16,17 @@
 
 	<div class="form-inline">
 		<?php echo $this->element('Holidays.Holidays/year_picker', array(
-			'fieldName' => 'start',
-			'year' => $this->request->data['HolidayRrule']['from'],
-			'ngModel' => 'holidayRrule.from',
-			'options' => array('ng-change' => 'changeTargetYear'))); ?>
+			'fieldName' => 'start_year',
+			'year' => $this->request->data['HolidayRrule']['start_year'],
+			'ngModel' => 'holidayRrule.startYear',
+		)); ?>
 
 		<?php echo __d('holidays', '-'); ?>
 
 		<?php echo $this->element('Holidays.Holidays/year_picker', array(
-			'fieldName' => 'end',
-			'year' => $this->request->data['HolidayRrule']['to'],
-			'ngModel' => 'holidayRrule.to',
+			'fieldName' => 'end_year',
+			'year' => $this->request->data['HolidayRrule']['end_year'],
+			'ngModel' => 'holidayRrule.endYear',
 		)); ?>
 	</div>
 </div>

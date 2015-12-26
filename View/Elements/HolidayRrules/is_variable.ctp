@@ -49,7 +49,7 @@
 <div class="form-group">
 	<div class="form-inline holidays-sub-setting" ng-show="holidayRrule.isVariable==<?php echo HolidaysAppController::HOLIDAYS_FIXED; ?>">
 		<div class="form-group">
-			<?php echo $this->NetCommonsForm->input('rrule_fixed', array(
+			<?php echo $this->NetCommonsForm->input('input_month_day', array(
 				'type' => 'date',
 				'div' => '',
 				'label' => __d('holidays', 'month and day'),
@@ -57,8 +57,8 @@
 				'dateFormat' => 'MD',
 				'monthNames' => false,
 				'separator' => '/',
-				'selected' => '01/01',
-				'required' => true
+				'required' => true,
+				'ng-disabled' => 'holidayRrule.isVariable==' . HolidaysAppController::HOLIDAYS_VARIABLE
 			));
 			?>
 		</div>
@@ -77,24 +77,24 @@
 	</div>
 
 	<div class="form-inline holidays-sub-setting" ng-show="holidayRrule.isVariable==<?php echo HolidaysAppController::HOLIDAYS_VARIABLE; ?>">
-		<?php echo $this->NetCommonsForm->input('rrule_variable', array(
+		<?php echo $this->NetCommonsForm->input('input_month_day', array(
 					'type' => 'date',
 					'label' => __d('holidays', 'Month , week, day of the week'),
 					'dateFormat' => 'M',
 					'monthNames' => false,
 					'separator' => '/',
-					'selected' => '01',
 					'required' => true,
 					'error' => false,
+					'ng-disabled' => 'holidayRrule.isVariable==' . HolidaysAppController::HOLIDAYS_FIXED
 				));
 		?>
-		<?php echo $this->NetCommonsForm->input('weekth', array(
+		<?php echo $this->NetCommonsForm->input('week', array(
 					'type' => 'select',
 					'label' => false,
 					'options' => HolidaysComponent::getWeekSelectList(),
 				));
 		?>
-		<?php echo $this->NetCommonsForm->input('weekday', array(
+		<?php echo $this->NetCommonsForm->input('day_of_the_week', array(
 					'type' => 'select',
 					'label' => false,
 					'options' => HolidaysComponent::getWeekdaySelectList(),

@@ -79,11 +79,11 @@ class HolidayExtractHolidayTest extends NetCommonsGetTest {
  * @return array
  */
 	public function dataProviderExtractHoliday() {
-		$existDays = array('2016-03-20 15:00:00', '2016-01-01 00:00:00', '2016-02-10 15:00:00', '2016-10-30 15:00:00');
+		$existDays = array('2015-03-21', '2014-01-01', '2015-02-11', '2015-10-31');
 		$notExistDays = array();
 
 		return array(
-			array($existDays, array('2016-03-20 15:00:00', '2016-02-10 15:00:00')), // this is 'id' value! 存在する
+			array($existDays, array('2015-03-21', '2015-02-11')), // 存在する
 			array($notExistDays, array('id' => '0')), // 存在しない
 		);
 	}

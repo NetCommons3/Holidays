@@ -12,12 +12,12 @@
 echo $this->NetCommonsHtml->css('/holidays/css/holidays.css');
 ?>
 <?php echo $this->NetCommonsForm->create('HolidayRrule'); ?>
+	<?php echo $this->NetCommonsForm->hidden('id'); ?>
 
 	<div class="panel-body">
 		<?php echo $this->SwitchLanguage->tablist('holidays-'); ?>
 
 		<div class="tab-content">
-
 			<?php echo $this->element('Holidays.HolidayRrules/title'); ?>
 
 			<?php echo $this->element('Holidays.HolidayRrules/is_variable'); ?>

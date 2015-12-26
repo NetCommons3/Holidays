@@ -81,7 +81,7 @@ class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
  * @return array
  */
 	public function dataProviderGet() {
-		$existYear = '2016';
+		$existYear = '2015';
 		$notExistYear = '2020';
 
 		return array(

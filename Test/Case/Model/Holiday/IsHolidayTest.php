@@ -74,13 +74,16 @@ class HolidayIsHolidayTest extends NetCommonsGetTest {
  * @return array
  */
 	public function dataProviderIsHoliday() {
-		$existData = date('Y-m-d H:i:s', strtotime('2016-02-11 00:00:00 GMT+09:00')); // 祝日
-		$notExistData = date('Y-m-d H:i:s', strtotime('1999-06-06 00:00:00 GMT+09:00')); // 祝日でない
+		$existData = '2015-02-11'; // 祝日
+		$notExistData = '1999-06-06'; // 祝日でない
+		$today = null;
 
-		return array(
+		$ret = array(
 			array($existData, true), // 存在する
 			array($notExistData, false), // 存在しない
+			array($today, false), // 実際にNC３がリリースになるとき(2016/04/01)からは必ずFALSE
 		);
+		return $ret;
 	}
 
 }

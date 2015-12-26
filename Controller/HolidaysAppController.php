@@ -38,14 +38,14 @@ class HolidaysAppController extends AppController {
  *
  * @var int
  */
-	const	HOLIDAYS_FIXED = 0;
+	const	HOLIDAYS_FIXED = '0';
 
 /**
  * 週曜日指定
  *
  * @var int
  */
-	const	HOLIDAYS_VARIABLE = 1;
+	const	HOLIDAYS_VARIABLE = '1';
 
 /**
  * use model
