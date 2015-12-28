@@ -140,7 +140,21 @@ class HolidayRrule extends HolidaysAppModel {
 
 		return true;
 	}
-
+/**
+ * Called before each save operation, after validation. Return a non-true result
+ * to halt the save.
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if the operation should continue, false if it should abort
+ * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforesave
+ * @see Model::save()
+ */
+	public function beforeSave($options = array()) {
+		// start_yearとend_yearは空っぽで来たときは自動的に補足する
+		$this->data[$this->alias]['start_year'] = $this->_getStartYearFromPostData($this->data[$this->alias]);
+		$this->data[$this->alias]['end_year'] = $this->_getEndYearFromPostData($this->data[$this->alias]);
+		return true;
+	}
 /**
  * saveHolidayRrule
  *
@@ -156,9 +170,14 @@ class HolidayRrule extends HolidaysAppModel {
 		]);
 
 		// SetされているPostデータを整える
+		// 月日入力はCakeの仕様のため、month, day に分割されてしまっているので
+		// DBに入れやすいようにまとめなおす
 		$day = isset($data[$this->alias]['input_month_day']['day']) ? $data[$this->alias]['input_month_day']['day'] : '01';
 		$monthDay = $data[$this->alias]['input_month_day']['month'] . '-' . $day;
 		$data[$this->alias]['month_day'] = '2001' . '-' . $monthDay;
+
+		// Rrule文字列作成 FUJI
+		$data[$this->alias]['rrule'] = $this->_makeRrule($data[$this->alias]);
 
 		//トランザクションBegin
 		$this->begin();
@@ -179,9 +198,6 @@ class HolidayRrule extends HolidaysAppModel {
 
 			// 以前の祝日データを削除
 			$this->Holiday->deleteAll(array('holiday_rrule_id' => $rRuleId), false, true);
-
-			// Rrule文字列作成
-			// FUJI
 
 			// Rruleから実際の日付配列を取得
 			// FUJI とりあえずのダミーあとでカレンダーから提供されるRrule展開ツールを使う
@@ -206,6 +222,101 @@ class HolidayRrule extends HolidaysAppModel {
 		return true;
 	}
 
+/**
+ * _makeRrule
+ *
+ * Postされた変数からRruleを組み立てる
+ *
+ * @param array $data Postデータ
+ * @return string
+ */
+	protected function _makeRrule($data) {
+		$rruleStr = '';
+		$endDateTime = $this->_getEndYearFromPostData($data);
+		$endDate = date('Ymd', strtotime($endDateTime));
+		$endTime = date('His', strtotime($endDateTime));
+		$rrule = array(
+			'FREQ' => 'YEARLY',
+			'INTERVAL' => 1,
+			'UNTIL' => $endDate . 'T' . $endTime,
+			'BYMONTH' => array(intval(intval($data['input_month_day']['month']))),
+		);
+		if ($data['is_variable'] == HolidaysAppController::HOLIDAYS_VARIABLE) {
+			$week = intval($data['week']);
+			$dayOfTheWeek = $data['day_of_the_week'];
+			$rrule['BYDAY'] = array($week . $dayOfTheWeek);
+		}
+
+		$this->_concatRRule($rrule, $rruleStr);
+
+		return $rruleStr;
+	}
+/**
+ * _concatRRule
+ *
+ * 文字列にする処理 FUJI もしかしたらこれはカレンダーUtilityの機能の一つではないか あとでここから削除かもしれない
+ *
+ * @param array $rrule Rrule配列データ
+ * @param string $resultStr $rruleデータから組み立てられたRrule文字列
+ * @return bool
+ */
+	protected function _concatRRule($rrule, &$resultStr) {
+		$resultStr = '';
+		$result = array();
+		$freqArray = ['NONE', 'YEARLY', 'MONTHLY', 'WEEKLY', 'DAILY'];
+		if (! (isset($rrule['FREQ']) && in_array($rrule['FREQ'], $freqArray))) {
+			return false;
+		}
+		if ($rrule['FREQ'] != 'NONE') {
+			$result = array('FREQ=' . $rrule['FREQ']);
+			$result[] = 'INTERVAL=' . intval($rrule['INTERVAL']);
+		}
+		if (isset($rrule['BYMONTH'])) {
+			$result[] = 'BYMONTH=' . implode(',', $rrule['BYMONTH']);
+		}
+		if (! empty($rrule['BYDAY'])) {
+			$result[] = 'BYDAY=' . implode(',', $rrule['BYDAY']);
+		}
+		if (!empty($rrule['BYMONTHDAY'])) {
+			$result[] = 'BYMONTHDAY=' . implode(',', $rrule['BYMONTHDAY']);
+		}
+		if (isset($rrule['UNTIL'])) {
+			$result[] = 'UNTIL=' . $rrule['UNTIL'];
+		} elseif (isset($rrule['COUNT'])) {
+			$result[] = 'COUNT=' . intval($rrule['COUNT']);
+		}
+		$resultStr = implode(';', $result);
+		return true;
+	}
+
+/**
+ * _getStartYearFromPostData
+ *
+ * 祝日設定開始年月文字列を取得する
+ *
+ * @param array $data Postデータ
+ * @return string
+ */
+	protected function _getStartYearFromPostData($data) {
+		if (empty($data['start_year'])) {
+			return HolidaysAppController::HOLIDAYS_DATE_MIN;
+		}
+		return $data['start_year'];
+	}
+/**
+ * _getEndYearFromPostData
+ *
+ * 祝日設定終了年月文字列を取得する
+ *
+ * @param array $data Postデータ
+ * @return string
+ */
+	protected function _getEndYearFromPostData($data) {
+		if (empty($data['end_year'])) {
+			return HolidaysAppController::HOLIDAYS_DATE_MAX;
+		}
+		return $data['end_year'];
+	}
 /**
  * __getDummyDays
  *
