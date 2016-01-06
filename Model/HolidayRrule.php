@@ -257,7 +257,7 @@ class HolidayRrule extends HolidaysAppModel {
  * 文字列にする処理 FUJI もしかしたらこれはカレンダーUtilityの機能の一つではないか あとでここから削除かもしれない
  *
  * @param array $rrule Rrule配列データ
- * @param string $resultStr $rruleデータから組み立てられたRrule文字列
+ * @param string &$resultStr $rruleデータから組み立てられたRrule文字列
  * @return bool
  */
 	protected function _concatRRule($rrule, &$resultStr) {
