@@ -22,6 +22,13 @@ App::uses('NetCommonsGetTest', 'NetCommons.TestSuite');
 class HolidayGetHolidayTest extends NetCommonsGetTest {
 
 /**
+ * Plugin name
+ *
+ * @var array
+ */
+	public $plugin = 'holidays';
+
+/**
  * Fixtures
  *
  * @var array
