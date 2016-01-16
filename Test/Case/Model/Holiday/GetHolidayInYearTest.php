@@ -34,7 +34,7 @@ class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.net_commons.site_setting',
+		'plugin.site_manager.site_setting',
 		'plugin.holidays.holiday',
 	);
 
