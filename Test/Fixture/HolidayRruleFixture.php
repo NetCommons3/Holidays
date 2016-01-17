@@ -21,7 +21,7 @@ class HolidayRruleFixture extends CakeTestFixture {
  */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary', 'comment' => 'ID | | | '),
-		'is_variable' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => '0:日付固定,1:週曜日指定の可変'),
+		'is_varidable' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => '0:日付固定,1:週曜日指定の可変'),
 		'can_substitute' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => '0:振替なし,1:振替あり'),
 		'start_year' => array('type' => 'datetime', 'null' => false, 'default' => null, 'comment' => '繰り返し開始日'),
 		'end_year' => array('type' => 'datetime', 'null' => false, 'default' => null, 'comment' => '繰り返し終了日'),

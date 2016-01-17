@@ -31,6 +31,13 @@ class HolidayGetHolidayTest extends NetCommonsGetTest {
 	);
 
 /**
+ * Plugin name
+ *
+ * @var string
+ */
+	public $plugin = 'Holidays';
+
+/**
  * Model name
  *
  * @var array

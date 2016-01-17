@@ -12,6 +12,7 @@
  */
 
 App::uses('NetCommonsGetTest', 'NetCommons.TestSuite');
+App::uses('NetCommonsTime', 'NetCommons.Utility');
 
 /**
  * Holiday::isHoliday()のテスト
@@ -29,6 +30,13 @@ class HolidayIsHolidayTest extends NetCommonsGetTest {
 	public $fixtures = array(
 		'plugin.holidays.holiday',
 	);
+
+/**
+ * Plugin name
+ *
+ * @var string
+ */
+	public $plugin = 'Holidays';
 
 /**
  * Model name

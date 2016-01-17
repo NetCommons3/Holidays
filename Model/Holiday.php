@@ -65,7 +65,7 @@ class Holiday extends HolidaysAppModel {
  * @return bool true:祝日 false:通常日　振替は祝日扱い
  */
 	public function isHoliday($date = null) {
-		if (! $date) {
+		if (!$date) {
 			$date = CakeTime::format((new NetCommonsTime())->getNowDatetime(), '%Y-%m-%d');
 		}
 		// $dateがnullの場合は本日日付
@@ -81,7 +81,7 @@ class Holiday extends HolidaysAppModel {
  * 指定された期間内の祝日日付を返す
  *
  * @param string $from 期間開始日‘YYYY-MM-DD’ 形式の文字列
- * @param string $to   期間終了日‘YYYY-MM-DD’ 形式の文字列
+ * @param string $to 期間終了日‘YYYY-MM-DD’ 形式の文字列
  * @return array期間内のholidayテーブルのデータ配列が返る
  */
 	public function getHoliday($from, $to) {
@@ -133,6 +133,41 @@ class Holiday extends HolidaysAppModel {
 		}
 		return $holidays;
 	}
+
+/**
+ * saveHolidays 休日設定の保存
+ *
+ * @param array $data save data
+ * @return bool
+ * @throws InternalErrorException
+ */
+	public function saveHolidays($data) {
+		//トランザクションBegin
+		$this->begin();
+
+		//バリデーション
+		$this->set($data);
+		if (!$this->validates()) {
+			return false;
+		}
+
+		try {
+			//Holiday登録
+			if (!$holiday = $this->save(null, false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$this->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$this->rollback($ex);
+		}
+
+		return $holiday;
+	}
+
 /**
  * Called during validation operations, before validation. Please note that custom
  * validation rules can be defined in $validate.
@@ -181,10 +216,32 @@ class Holiday extends HolidaysAppModel {
 				'boolean' => array(
 					'rule' => array('boolean'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => false,
+					'required' => true,
 				),
 			),
 		));
 		parent::beforeValidate($options);
 		return true;
+	}
+
+/**
+ * AfterFind Callback function
+ *
+ * @param array $results found data records
+ * @param bool $primary indicates whether or not the current model was the model that the query originated on or whether or not this model was queried as an association
+ * @return mixed
+ * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+ */
+	public function afterFind($results, $primary = false) {
+		foreach ($results as &$val) {
+			if (isset($val[$this->alias]['is_substitute'])) {
+				$val[$this->alias]['is_substitute'] = intval($val[$this->alias]['is_substitute']);
+			}
+			if (isset($val[$this->alias]['holiday'])) {
+				$val[$this->alias]['holiday'] = date('Y-m-d', strtotime($val[$this->alias]['holiday']));
+			}
+		}
+		return $results;
 	}
 }

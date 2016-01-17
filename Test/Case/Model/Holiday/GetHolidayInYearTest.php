@@ -12,6 +12,7 @@
  */
 
 App::uses('NetCommonsGetTest', 'NetCommons.TestSuite');
+App::uses('NetCommonsTime', 'NetCommons.Utility');
 
 /**
  * Holiday::getHolidayInYear()のテスト
@@ -30,6 +31,13 @@ class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
 		'plugin.net_commons.site_setting',
 		'plugin.holidays.holiday',
 	);
+
+/**
+ * Plugin name
+ *
+ * @var string
+ */
+	public $plugin = 'Holidays';
 
 /**
  * Model name
@@ -87,6 +95,7 @@ class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
 		return array(
 			array($existYear, array('2', '4', '6', '8')), // this is 'id' value! 存在する
 			array($notExistYear, array('id' => '0')), // 存在しない
+			array(null, array('id' => '0')), // 存在しない
 		);
 	}
 
