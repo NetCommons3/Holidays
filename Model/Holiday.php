@@ -11,6 +11,7 @@
 
 App::uses('CakeTime', 'Utility');
 App::uses('HolidaysAppModel', 'Holidays.Model');
+App::uses('NetCommonsTime', 'NetCommons.Utility');
 
 /**
  * Summary for Holiday Model

@@ -23,6 +23,13 @@ App::uses('NetCommonsTime', 'NetCommons.Utility');
 class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
 
 /**
+ * Plugin name
+ *
+ * @var array
+ */
+	public $plugin = 'holidays';
+
+/**
  * Fixtures
  *
  * @var array
