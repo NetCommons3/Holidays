@@ -68,9 +68,10 @@ class HolidaysController extends HolidaysAppController {
  */
 	public function index() {
 		$targetYear = null;
+		//print_r($this->params);
 		// 指定年取り出し
-		if (isset($this->data['targetYear'])) {
-			$targetYear = $this->data['targetYear'];
+		if (isset($this->params['named']['targetYear'])) {
+			$targetYear = $this->params['named']['targetYear'];
 		} else {
 			$targetYear = CakeTime::format((new NetCommonsTime())->getNowDatetime(), '%Y');
 		}
@@ -87,7 +88,7 @@ class HolidaysController extends HolidaysAppController {
  * @return void
  */
 	public function add() {
-		if ($this->request->isPost()) {
+		if ($this->request->is('post')) {
 			// 登録処理
 			if (! $this->HolidayRrule->saveHolidayRrule($this->request->data)) {
 				$this->NetCommons->handleValidationError($this->HolidayRrule->validationErrors);
@@ -120,7 +121,7 @@ class HolidaysController extends HolidaysAppController {
  */
 	public function edit($rruleId = null) {
 		// EditのときはPUTでくる
-		if ($this->request->isPut()) {
+		if ($this->request->is('put')) {
 			// 登録処理
 			if (! $this->HolidayRrule->saveHolidayRrule($this->request->data)) {
 				$this->NetCommons->handleValidationError($this->HolidayRrule->validationErrors);
@@ -158,11 +159,18 @@ class HolidaysController extends HolidaysAppController {
  * @return void
  */
 	public function delete($rruleId = null) {
+		if (! $this->request->is('delete')) { // test
+			$this->throwBadRequest();
+			return;
+		}
 		// ruleIdの指定がない場合エラー
-		// FUJI
-
 		// 削除処理
-		// FUJI
+		//print_r($rruleId);
+
+		if (!$this->Holiday->deleteHoliday($rruleId)) {
+			$this->throwBadRequest();
+			return;
+		}
 
 		// 画面再表示
 		// FUJI 削除しましたのFlashメッセージを設定してから

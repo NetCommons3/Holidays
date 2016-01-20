@@ -139,7 +139,7 @@ class HolidaySaveHolidayTest extends NetCommonsSaveTest {
 				__d('net_commons', 'Invalid request.')),
 			array($this->__getData(), 'holiday', 'aaaaa',
 				__d('net_commons', 'Invalid request.')),
-			array($this->__getData(), 'is_substitute', '',
+			array($this->__getData(), 'is_substitute', 'a',
 				__d('net_commons', 'Invalid request.')),
 			array($this->__getData(), 'title', '',
 				__d('holidays', 'Please input title.')),

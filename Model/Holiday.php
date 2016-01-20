@@ -217,8 +217,8 @@ class Holiday extends HolidaysAppModel {
 				'boolean' => array(
 					'rule' => array('boolean'),
 					'message' => __d('net_commons', 'Invalid request.'),
-					'allowEmpty' => false,
-					'required' => true,
+					'allowEmpty' => true,
+					'required' => false,
 				),
 			),
 		));
@@ -245,4 +245,46 @@ class Holiday extends HolidaysAppModel {
 		}
 		return $results;
 	}
+
+/**
+ * delete holidays
+ *
+ * @param int $rruleId received post data
+ * @return bool True if validate operation should continue, false to abort
+ * @throws InternalErrorException
+ */
+	public function deleteHoliday($rruleId) {
+		$this->loadModels([
+			'Holiday' => 'Holidays.Holiday',
+			'HolidayRrule' => 'Holidays.HolidayRrule',
+		]);
+
+		//トランザクションBegin
+		$this->begin();
+
+		try {
+			//HolidayRruleの削除
+			if (! $this->HolidayRrule->delete($rruleId, false, true)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//Holidayの削除
+			$result = $this->Holiday->deleteAll(array(
+				'holiday_rrule_id' => $rruleId
+				), false, true);
+			if ($result === false) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$this->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$this->rollback($ex);
+		}
+
+		return true;
+	}
+
 }
