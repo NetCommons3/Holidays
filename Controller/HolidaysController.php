@@ -68,7 +68,6 @@ class HolidaysController extends HolidaysAppController {
  */
 	public function index() {
 		$targetYear = null;
-		//print_r($this->params);
 		// 指定年取り出し
 		if (isset($this->params['named']['targetYear'])) {
 			$targetYear = $this->params['named']['targetYear'];
@@ -141,8 +140,9 @@ class HolidaysController extends HolidaysAppController {
 
 		$holiday = $this->Holiday->find('all', array(
 			'conditions' => array(
-				'holiday_rrule_id' => $rruleId
-			)
+				'holiday_rrule_id' => $rruleId,
+				'is_substitute' => false, //kuma (振替休日がタイトルに出てしまうため)
+			),
 		));
 		$holiday = Hash::combine($holiday, '{n}.Holiday.language_id', '{n}.Holiday');
 
@@ -165,7 +165,6 @@ class HolidaysController extends HolidaysAppController {
 		}
 		// ruleIdの指定がない場合エラー
 		// 削除処理
-		//print_r($rruleId);
 
 		if (!$this->Holiday->deleteHoliday($rruleId)) {
 			$this->throwBadRequest();

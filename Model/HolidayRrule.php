@@ -162,7 +162,7 @@ class HolidayRrule extends HolidaysAppModel {
  *
  * @param array $data 登録データ
  * @return bool
- * @throws Exception
+ * @throws InternalErrorException
  */
 	public function saveHolidayRrule($data) {
 		$this->loadModels([
@@ -172,9 +172,20 @@ class HolidayRrule extends HolidaysAppModel {
 		// SetされているPostデータを整える
 		// 月日入力はCakeの仕様のため、month, day に分割されてしまっているので
 		// DBに入れやすいようにまとめなおす
+
 		$day = isset($data[$this->alias]['input_month_day']['day']) ? $data[$this->alias]['input_month_day']['day'] : '01';
 		$monthDay = $data[$this->alias]['input_month_day']['month'] . '-' . $day;
 		$data[$this->alias]['month_day'] = '2001' . '-' . $monthDay;
+
+		// kuma add test start
+		//開始年
+		$orgStartYear = $data[$this->alias]['start_year'];
+		$data[$this->alias]['start_year'] = $data[$this->alias]['start_year'] . '-01-01';
+
+		//終了年
+		$orgEndYear = $data[$this->alias]['end_year'];
+		$data[$this->alias]['end_year'] = $data[$this->alias]['end_year'] . '-12-31';
+		// kuma add test end
 
 		// Rrule文字列作成 FUJI
 		$data[$this->alias]['rrule'] = $this->_makeRrule($data[$this->alias]);
@@ -201,23 +212,37 @@ class HolidayRrule extends HolidaysAppModel {
 
 			// Rruleから実際の日付配列を取得
 			// FUJI とりあえずのダミーあとでカレンダーから提供されるRrule展開ツールを使う
-			$days = $this->__getDummyDays($data[$this->alias]);
+			$days = $this->_getDummyDays($data[$this->alias], $orgStartYear, $orgEndYear);
 
 			// 取得した日付の数分Holidayを登録
+			$holiday = Hash::remove($data['Holiday'], '{n}.id'); // kuma add
+			// kuma add 日本語と英語は同じキー。add(新規）のときに、NetCommons/Model/Behavior/のgenerateKeyでキーを設定、更新のときは、従来のものを引き継ぐ
+			$holiday = Hash::insert($holiday, '{n}.holiday_rrule_id', $rRuleId); // kuma move
 			foreach ($days as $day) {
-				$holiday = Hash::insert($data['Holiday'], '{n}.holiday', $day);
-				$holiday = Hash::insert($holiday, '{n}.holiday_rrule_id', $rRuleId);
+				//休日取得（固定休日/可変休日）
+				$day = $this->_valiable($data, $day);
+
+				$holiday = Hash::insert($holiday, '{n}.holiday', $day);
+
+				if (empty($data['Holiday'][0]['key'])) {
+					$key = OriginalKeyBehavior::generateKey('HolidayRrule', $this->useDbConfig);
+					$holiday = Hash::insert($holiday, '{n}.key', $key);
+				}
+
+				//休日登録
 				if (! $this->Holiday->saveMany($holiday)) {
-					$this->validationErrors['Holiday'] = $this->Holiday->validationErrors;
-					$this->rollback();
-					return false;
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
+
+				//振替休日(振替に該当した場合、休日登録)
+				if (!$this->_substitute($data, $holiday)) {
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 				}
 			}
 			$this->commit();
 		} catch (Exception $ex) {
 			$this->rollback();
 			CakeLog::error($ex);
-			throw $ex;
 		}
 		return true;
 	}
@@ -251,43 +276,6 @@ class HolidayRrule extends HolidaysAppModel {
 
 		return $rruleStr;
 	}
-/**
- * _concatRRule
- *
- * 文字列にする処理 FUJI もしかしたらこれはカレンダーUtilityの機能の一つではないか あとでここから削除かもしれない
- *
- * @param array $rrule Rrule配列データ
- * @param string &$resultStr $rruleデータから組み立てられたRrule文字列
- * @return bool
- */
-	protected function _concatRRule($rrule, &$resultStr) {
-		$resultStr = '';
-		$result = array();
-		$freqArray = ['NONE', 'YEARLY', 'MONTHLY', 'WEEKLY', 'DAILY'];
-		if (! (isset($rrule['FREQ']) && in_array($rrule['FREQ'], $freqArray))) {
-			return false;
-		}
-		if ($rrule['FREQ'] != 'NONE') {
-			$result = array('FREQ=' . $rrule['FREQ']);
-			$result[] = 'INTERVAL=' . intval($rrule['INTERVAL']);
-		}
-		if (isset($rrule['BYMONTH'])) {
-			$result[] = 'BYMONTH=' . implode(',', $rrule['BYMONTH']);
-		}
-		if (! empty($rrule['BYDAY'])) {
-			$result[] = 'BYDAY=' . implode(',', $rrule['BYDAY']);
-		}
-		if (!empty($rrule['BYMONTHDAY'])) {
-			$result[] = 'BYMONTHDAY=' . implode(',', $rrule['BYMONTHDAY']);
-		}
-		if (isset($rrule['UNTIL'])) {
-			$result[] = 'UNTIL=' . $rrule['UNTIL'];
-		} elseif (isset($rrule['COUNT'])) {
-			$result[] = 'COUNT=' . intval($rrule['COUNT']);
-		}
-		$resultStr = implode(';', $result);
-		return true;
-	}
 
 /**
  * _getStartYearFromPostData
@@ -317,19 +305,88 @@ class HolidayRrule extends HolidaysAppModel {
 		}
 		return $data['end_year'];
 	}
+
 /**
- * __getDummyDays
+ * _valiable
  *
- * カレンダーUtilityができるまでのスタブ関数
+ * 可変休日(x週のx曜日の日付)
  *
- * @param array $data RRULEデータ
- * @return array
+ * @param array $data Postデータ
+ * @param string $day 登録するholidayの日
+ * @return string
  */
-	private function __getDummyDays($data) {
-		$ret = array();
-		for ($i = 2001; $i <= 2033; $i++) {
-			$ret[] = $i . '-' . substr($data['month_day'], 5);
+	protected function _valiable($data, $day) {
+		if ($data['HolidayRrule']['is_variable'] == false) {
+			return $day;
 		}
-		return $ret;
+		if ($data[$this->alias]['week'] <= 0) {
+			return $day;
+		} else {
+			list($year, $month, $day) = explode('-', $day);
+			$timestamp = mktime(0, 0, 0, $data[$this->alias]['input_month_day']['month'], 1, $year);
+			$wDay = date("w", $timestamp);
+
+			$wDayNum = $this->_getWeekDayNum($data[$this->alias]['day_of_the_week']);
+			$wDay = ($wDay <= $wDayNum ? 7 + $wDay : $wDay );
+			$newDay = $data[$this->alias]['week'] * 7 + $wDayNum + 1;
+			$timestamp = mktime(0, 0, 0, $month, $newDay - $wDay, $year);
+			$result = date('Y-m-d', $timestamp);
+			return $result;
+		}
 	}
+
+/**
+ * _substitute
+ *
+ * 振替休日を登録する
+ *
+ * @param array $data POSTデータ
+ * @param array $holiday データ
+ * @return bool
+ */
+	protected function _substitute($data, $holiday) {
+		if ($data['HolidayRrule']['can_substitute'] == true) {
+			$substitute = array();
+			$substitute = $this->_getSubstitute($holiday);
+			if ($substitute !== null) { // 振替休日あり
+				//$holiday = array_merge_recursive($holiday, $substitute);
+				if (! $this->Holiday->saveMany($substitute)) {
+					//エラー
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+/**
+ * _getSubstitute
+ *
+ * 振替休日を取得する
+ *
+ * @param array $holiday データ
+ * @return string
+ */
+	protected function _getSubstitute($holiday) {
+		list($year, $month, $day) = explode('-', $holiday[1]['holiday']);
+
+		$timestamp = mktime(0, 0, 0, $month, $day, $year);
+		$wday = date("w", $timestamp);
+		$date = $holiday[1]['holiday'];
+		$substitute = array();
+		if ($wday == 0) { //日曜日
+			$substitute = $holiday;
+			$substitute[1]['title'] = 'substitute holiday'; // タイトル（英語）
+			$substitute[2]['title'] = '(振替休日)'; // タイトル（日本語）
+
+			$substitute[1]['is_substitute'] = true; // 振替休日（英語）
+			$substitute[2]['is_substitute'] = true; // 振替休日（日本語）
+
+			$substitute[1]['holiday'] = strftime('%Y/%m/%d', strtotime($date . "+1 day"));// +1日(yyyy-mm-dd)
+			$substitute[2]['holiday'] = strftime('%Y/%m/%d', strtotime($date . "+1 day"));// +1日(yyyy-mm-dd)
+			return $substitute;
+		} else {
+			return null;
+		}
+	}
+
 }

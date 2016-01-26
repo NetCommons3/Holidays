@@ -92,7 +92,8 @@ class Holiday extends HolidaysAppModel {
 				'holiday >=' => $from,
 				'holiday <=' => $to),
 			'recursive' => -1,
-			'order' => array('holiday')
+		//	'order' => array('holiday')
+			'order' => array('Holiday.id' => 'asc') // kuma mod
 		));
 		return $holidays;
 	}
@@ -151,7 +152,6 @@ class Holiday extends HolidaysAppModel {
 		if (!$this->validates()) {
 			return false;
 		}
-
 		try {
 			//Holiday登録
 			if (!$holiday = $this->save(null, false)) {

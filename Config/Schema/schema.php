@@ -53,9 +53,9 @@ class HolidaysSchema extends CakeSchema {
 	public $holiday_rrules = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary', 'comment' => 'ID | | | '),
 		'is_variable' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => '0:日付固定,1:週曜日指定の可変'),
-		'month_day' => array('type' => 'date', 'null' => true, 'default' => null, 'length' => 2, 'unsigned' => false),
+		'month_day' => array('type' => 'date', 'null' => true, 'default' => null),
 		'week' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 2, 'unsigned' => false),
-		'day_of_the_week' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 2, 'unsigned' => false),
+		'day_of_the_week' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 2, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'can_substitute' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => '0:振替なし,1:振替あり'),
 		'start_year' => array('type' => 'date', 'null' => false, 'default' => null),
 		'end_year' => array('type' => 'date', 'null' => false, 'default' => null),
@@ -93,4 +93,5 @@ class HolidaysSchema extends CakeSchema {
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
+
 }
