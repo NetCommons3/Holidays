@@ -38,12 +38,16 @@ echo $this->NetCommonsHtml->script(array(
 						?>
 					</td>
 					<td class="grid_summary holiday_grid_summary">
-						<?php echo $this->NetCommonsHtml->link(
-							$holiday['Holiday']['title'],
-							NetCommonsUrl::actionUrl(array(
-								'action' => 'edit',
-								'key' => $holiday['Holiday']['holiday_rrule_id']))
-						); ?>
+						<?php if ($holiday['Holiday']['is_substitute'] === 1) :?>
+							<?php echo $holiday['Holiday']['title']; ?>
+						<?php else: ?>
+							<?php echo $this->NetCommonsHtml->link(
+								$holiday['Holiday']['title'],
+								NetCommonsUrl::actionUrl(array(
+									'action' => 'edit',
+									'key' => $holiday['Holiday']['holiday_rrule_id']))
+							); ?>
+						<?php endif; ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>

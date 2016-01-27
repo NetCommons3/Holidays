@@ -92,8 +92,8 @@ class Holiday extends HolidaysAppModel {
 				'holiday >=' => $from,
 				'holiday <=' => $to),
 			'recursive' => -1,
-		//	'order' => array('holiday')
-			'order' => array('Holiday.id' => 'asc') // kuma mod
+			'order' => array('holiday')
+		//	'order' => array('Holiday.id' => 'asc') // kuma mod
 		));
 		return $holidays;
 	}

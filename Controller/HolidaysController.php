@@ -141,7 +141,7 @@ class HolidaysController extends HolidaysAppController {
 		$holiday = $this->Holiday->find('all', array(
 			'conditions' => array(
 				'holiday_rrule_id' => $rruleId,
-				'is_substitute' => false, //kuma (振替休日がタイトルに出てしまうため)
+			//	'is_substitute' => false, //kuma (振替休日がタイトルに出てしまうため)
 			),
 		));
 		$holiday = Hash::combine($holiday, '{n}.Holiday.language_id', '{n}.Holiday');
