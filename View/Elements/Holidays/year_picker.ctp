@@ -26,7 +26,8 @@ $pickerOpt = str_replace('"', "'", json_encode(array(
 		'datetimepicker' => 'datetimepicker',
 		'datetimepicker-options' => $pickerOpt,
 		'value' => (empty($year)) ? '' : intval($year),
-		'ng-model' => $ngModel
+		'ng-model' => $ngModel,
+		'placeholder' => ($fieldName == 'start_year')? 2001:2033,
 	));
 	?>
 	<div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>

@@ -89,6 +89,7 @@ class HolidaysController extends HolidaysAppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			// 登録処理
+			$this->log($this->request->data, 'debug');
 			if (! $this->HolidayRrule->saveHolidayRrule($this->request->data)) {
 				$this->NetCommons->handleValidationError($this->HolidayRrule->validationErrors);
 				return;
@@ -131,17 +132,26 @@ class HolidaysController extends HolidaysAppController {
 			return;
 		}
 		// ruleIdの指定がない場合エラー
+		if ($rruleId <= 0) {
+			$this->throwBadRequest();
+			return false;
+		}
 		// データ取り出し
 		$rrule = $this->HolidayRrule->find('first', array(
 			'conditions' => array(
-				'HolidayRrule.id' => $rruleId),
+				'HolidayRrule.id' => $rruleId,
+					),
 		));
-		// データがない場合エラー FUJI
+		// データがない場合エラー
+		if (!$rrule) {
+			$this->throwBadRequest();
+			return false;
+		}
 
 		$holiday = $this->Holiday->find('all', array(
 			'conditions' => array(
 				'holiday_rrule_id' => $rruleId,
-			//	'is_substitute' => false, //kuma (振替休日がタイトルに出てしまうため)
+				'is_substitute' => false,
 			),
 		));
 		$holiday = Hash::combine($holiday, '{n}.Holiday.language_id', '{n}.Holiday');
@@ -164,8 +174,11 @@ class HolidaysController extends HolidaysAppController {
 			return;
 		}
 		// ruleIdの指定がない場合エラー
+		if ($rruleId <= 0) {
+			$this->throwBadRequest();
+			return false;
+		}
 		// 削除処理
-
 		if (!$this->Holiday->deleteHoliday($rruleId)) {
 			$this->throwBadRequest();
 			return;

@@ -125,6 +125,7 @@ class HolidayRrule extends HolidaysAppModel {
 					'rule' => array('date'),
 					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => true,
+					'required' => false, // kuma add
 				),
 			),
 			'end_year' => array(
@@ -132,6 +133,7 @@ class HolidayRrule extends HolidaysAppModel {
 					'rule' => array('date'),
 					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => true,
+					'required' => false, //kuma add
 				),
 			),
 		));
@@ -211,8 +213,7 @@ class HolidayRrule extends HolidaysAppModel {
 			$this->Holiday->deleteAll(array('holiday_rrule_id' => $rRuleId), false, true);
 
 			// Rruleから実際の日付配列を取得
-			// FUJI とりあえずのダミーあとでカレンダーから提供されるRrule展開ツールを使う
-			$days = $this->_getDummyDays($data[$this->alias], $orgStartYear, $orgEndYear);
+			$days = $this->_getDays($data[$this->alias], $orgStartYear, $orgEndYear);
 
 			// 取得した日付の数分Holidayを登録
 			$holiday = Hash::remove($data['Holiday'], '{n}.id'); // kuma add

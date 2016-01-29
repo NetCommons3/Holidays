@@ -39,17 +39,16 @@ class HolidaysAppModel extends AppModel {
 	}
 
 /**
- * _getDummyDays
+ * _getDays
  *
- * カレンダーUtilityができるまでのスタブ関数
- *(後ではしもとさんのカレンダー内のライブラリと差し替え)
+ *  指定期間分の日付を取得する
  *
- * @param array $data RRULEデータ
+ * @param array $data データ
  * @param int $start 開始年
  * @param int $end 終了年
  * @return array
  */
-	protected function _getDummyDays($data, $start, $end) {
+	protected function _getDays($data, $start, $end) {
 		$ret = array();
 
 		for ($i = $start; $i <= $end; $i++) { // kuma mod
@@ -61,7 +60,7 @@ class HolidaysAppModel extends AppModel {
 /**
  * _concatRRule
  *
- * 文字列にする処理 FUJI もしかしたらこれはカレンダーUtilityの機能の一つではないか あとでここから削除かもしれない
+ * for NetCommons2
  *
  * @param array $rrule Rrule配列データ
  * @param string &$resultStr $rruleデータから組み立てられたRrule文字列
@@ -69,30 +68,30 @@ class HolidaysAppModel extends AppModel {
  */
 	protected function _concatRRule($rrule, &$resultStr) {
 		$resultStr = '';
-		$result = array();
-		$freqArray = ['NONE', 'YEARLY', 'MONTHLY', 'WEEKLY', 'DAILY'];
-		if (! (isset($rrule['FREQ']) && in_array($rrule['FREQ'], $freqArray))) {
-			return false;
-		}
-		if ($rrule['FREQ'] != 'NONE') {
-			$result = array('FREQ=' . $rrule['FREQ']);
-			$result[] = 'INTERVAL=' . intval($rrule['INTERVAL']);
-		}
-		if (isset($rrule['BYMONTH'])) {
-			$result[] = 'BYMONTH=' . implode(',', $rrule['BYMONTH']);
-		}
-		if (! empty($rrule['BYDAY'])) {
-			$result[] = 'BYDAY=' . implode(',', $rrule['BYDAY']);
-		}
-		if (!empty($rrule['BYMONTHDAY'])) {
-			$result[] = 'BYMONTHDAY=' . implode(',', $rrule['BYMONTHDAY']);
-		}
-		if (isset($rrule['UNTIL'])) {
-			$result[] = 'UNTIL=' . $rrule['UNTIL'];
-		} elseif (isset($rrule['COUNT'])) {
-			$result[] = 'COUNT=' . intval($rrule['COUNT']);
-		}
-		$resultStr = implode(';', $result);
+		//$result = array();
+		//$freqArray = ['NONE', 'YEARLY', 'MONTHLY', 'WEEKLY', 'DAILY'];
+		//if (! (isset($rrule['FREQ']) && in_array($rrule['FREQ'], $freqArray))) {
+		//	return false;
+		//}
+		//if ($rrule['FREQ'] != 'NONE') {
+		//	$result = array('FREQ=' . $rrule['FREQ']);
+		//	$result[] = 'INTERVAL=' . intval($rrule['INTERVAL']);
+		//}
+		//if (isset($rrule['BYMONTH'])) {
+		//	$result[] = 'BYMONTH=' . implode(',', $rrule['BYMONTH']);
+		//}
+		//if (! empty($rrule['BYDAY'])) {
+		//	$result[] = 'BYDAY=' . implode(',', $rrule['BYDAY']);
+		//}
+		//if (!empty($rrule['BYMONTHDAY'])) {
+		//	$result[] = 'BYMONTHDAY=' . implode(',', $rrule['BYMONTHDAY']);
+		//}
+		//if (isset($rrule['UNTIL'])) {
+		//	$result[] = 'UNTIL=' . $rrule['UNTIL'];
+		//} elseif (isset($rrule['COUNT'])) {
+		//	$result[] = 'COUNT=' . intval($rrule['COUNT']);
+		//}
+		//$resultStr = implode(';', $result);
 		return true;
 	}
 
