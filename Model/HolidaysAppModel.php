@@ -50,7 +50,6 @@ class HolidaysAppModel extends AppModel {
  */
 	protected function _getDays($data, $start, $end) {
 		$ret = array();
-
 		for ($i = $start; $i <= $end; $i++) { // kuma mod
 			$ret[] = $i . '-' . substr($data['month_day'], 5);
 		}

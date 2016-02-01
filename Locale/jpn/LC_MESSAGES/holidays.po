@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"PO-Revision-Date: 2016-01-28 10:55+0900\n"
+"PO-Revision-Date: 2016-01-29 17:04+0900\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "土曜日"
 
 #: /Model/Holiday.php:211 /Test/Case/Model/Holiday/SaveHolidayTest.php:145
 msgid "Please input title."
-msgstr "タイトルを入力してください。"
+msgstr "名称を入力してください。(英語、日本語ともに入力必須です。)"
 
 #: /View/Elements/HolidayRrules/is_variable.ctp:14
 msgid "holiday specification type"

@@ -27,8 +27,10 @@ $pickerOpt = str_replace('"', "'", json_encode(array(
 		'datetimepicker-options' => $pickerOpt,
 		'value' => (empty($year)) ? '' : intval($year),
 		'ng-model' => $ngModel,
-		'placeholder' => ($fieldName == 'start_year')? 2001:2033,
+		'placeholder' => ($fieldName == 'start_year')? HolidaysAppController::HOLIDAYS_YEAR_MIN:HolidaysAppController::HOLIDAYS_YEAR_MAX,
+		'error' => false,
 	));
 	?>
 	<div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
 </div>
+

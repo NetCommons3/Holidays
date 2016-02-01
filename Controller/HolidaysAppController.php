@@ -24,7 +24,7 @@ class HolidaysAppController extends AppController {
  *
  * @var string
  */
-	const	HOLIDAYS_DATE_MIN = '2001-01-01 00:00:00';
+	const	HOLIDAYS_DATE_MIN = '1970-01-01 00:00:00';
 
 /**
  * 祝日設定が取り扱う最大日
@@ -32,6 +32,20 @@ class HolidaysAppController extends AppController {
  * @var string
  */
 	const	HOLIDAYS_DATE_MAX = '2033-12-31 23:59:59';
+
+/**
+ * 祝日設定が取り扱う最小年
+ *
+ * @var string
+ */
+	const	HOLIDAYS_YEAR_MIN = 2001;
+
+/**
+ * 祝日設定が取り扱う最大年
+ *
+ * @var string
+ */
+	const	HOLIDAYS_YEAR_MAX = 2033;
 
 /**
  * 日付固定

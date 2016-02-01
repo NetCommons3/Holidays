@@ -28,5 +28,6 @@
 			'year' => $this->request->data['HolidayRrule']['end_year'],
 			'ngModel' => 'holidayRrule.endYear',
 		)); ?>
+		<?php echo $this->NetCommonsForm->error('end_year'); ?>
 	</div>
 </div>

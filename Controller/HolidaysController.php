@@ -125,6 +125,7 @@ class HolidaysController extends HolidaysAppController {
 			// 登録処理
 			if (! $this->HolidayRrule->saveHolidayRrule($this->request->data)) {
 				$this->NetCommons->handleValidationError($this->HolidayRrule->validationErrors);
+				$this->NetCommons->handleValidationError($this->Holiday->validationErrors);
 				return;
 			}
 			// 登録正常時

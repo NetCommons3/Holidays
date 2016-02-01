@@ -125,15 +125,21 @@ class HolidayRrule extends HolidaysAppModel {
 					'rule' => array('date'),
 					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => true,
-					'required' => false, // kuma add
 				),
+				//'comparison' => array(
+				//		'rule' => array('comparison', '<', $this->data['HolidayRrule']['end_year']),
+				//		'message' => __d('holidays', 'Please input the value is smaller than end year.')
+				//),
 			),
 			'end_year' => array(
 				'date' => array(
 					'rule' => array('date'),
 					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => true,
-					'required' => false, //kuma add
+				),
+				'comparison' => array(
+						'rule' => array('comparison', '>', $this->data['HolidayRrule']['start_year']),
+						'message' => __d('holidays', 'Please input the end year is bigger than start year.')
 				),
 			),
 		));
@@ -152,9 +158,6 @@ class HolidayRrule extends HolidaysAppModel {
  * @see Model::save()
  */
 	public function beforeSave($options = array()) {
-		// start_yearとend_yearは空っぽで来たときは自動的に補足する
-		$this->data[$this->alias]['start_year'] = $this->_getStartYearFromPostData($this->data[$this->alias]);
-		$this->data[$this->alias]['end_year'] = $this->_getEndYearFromPostData($this->data[$this->alias]);
 		return true;
 	}
 /**
@@ -179,19 +182,16 @@ class HolidayRrule extends HolidaysAppModel {
 		$monthDay = $data[$this->alias]['input_month_day']['month'] . '-' . $day;
 		$data[$this->alias]['month_day'] = '2001' . '-' . $monthDay;
 
-		// kuma add test start
 		//開始年
-		$orgStartYear = $data[$this->alias]['start_year'];
-		$data[$this->alias]['start_year'] = $data[$this->alias]['start_year'] . '-01-01';
+		$orgStartYear = $this->_getStartYearFromPostData($data[$this->alias]);
+		$data[$this->alias]['start_year'] = $orgStartYear . '-01-01';
 
 		//終了年
-		$orgEndYear = $data[$this->alias]['end_year'];
-		$data[$this->alias]['end_year'] = $data[$this->alias]['end_year'] . '-12-31';
-		// kuma add test end
+		$orgEndYear = $this->_getEndYearFromPostData($data[$this->alias]);
+		$data[$this->alias]['end_year'] = $orgEndYear . '-12-31';
 
 		// Rrule文字列作成 FUJI
-		$data[$this->alias]['rrule'] = $this->_makeRrule($data[$this->alias]);
-
+		$data[$this->alias]['rrule'] = '';
 		//トランザクションBegin
 		$this->begin();
 
@@ -222,28 +222,51 @@ class HolidayRrule extends HolidaysAppModel {
 			foreach ($days as $day) {
 				//休日取得（固定休日/可変休日）
 				$day = $this->_valiable($data, $day);
-
 				$holiday = Hash::insert($holiday, '{n}.holiday', $day);
-
 				if (empty($data['Holiday'][0]['key'])) {
 					$key = OriginalKeyBehavior::generateKey('HolidayRrule', $this->useDbConfig);
 					$holiday = Hash::insert($holiday, '{n}.key', $key);
 				}
-
 				//休日登録
-				if (! $this->Holiday->saveMany($holiday)) {
-					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				$holiday2 = $holiday;
+				$this->Holiday->set($holiday2);
+				if (!$this->Holiday->validateMany($holiday2)) { // 引数の配列が乱れる？
+					$this->validationErrors = Hash::merge($this->validationErrors, $this->Holiday->validationErrors);
+					return false;
+				}
+				if (!$this->_saveHolidayData($data, $holiday)) {
+					$this->roolback();
+					return false;
 				}
 
-				//振替休日(振替に該当した場合、休日登録)
-				if (!$this->_substitute($data, $holiday)) {
-					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-				}
 			}
 			$this->commit();
 		} catch (Exception $ex) {
 			$this->rollback();
 			CakeLog::error($ex);
+		}
+		return true;
+	}
+
+/**
+ * _saveHolidayData
+ *
+ * save Holiday
+ *
+ * @param array $data POSTデータ
+ * @param array $holiday データ
+ * @return bool
+ * @throws InternalErrorException
+ */
+	protected function _saveHolidayData($data, $holiday) {
+		//休日登録
+		if (! $this->Holiday->saveMany($holiday)) {
+			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+		}
+
+		//振替休日(振替に該当した場合、休日登録)
+		if (!$this->_substitute($data, $holiday)) {
+			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 		return true;
 	}
@@ -256,6 +279,7 @@ class HolidayRrule extends HolidaysAppModel {
  * @param array $data Postデータ
  * @return string
  */
+	/* 未使用になった
 	protected function _makeRrule($data) {
 		$rruleStr = '';
 		$endDateTime = $this->_getEndYearFromPostData($data);
@@ -277,6 +301,7 @@ class HolidayRrule extends HolidaysAppModel {
 
 		return $rruleStr;
 	}
+	*/
 
 /**
  * _getStartYearFromPostData
@@ -284,11 +309,11 @@ class HolidayRrule extends HolidaysAppModel {
  * 祝日設定開始年月文字列を取得する
  *
  * @param array $data Postデータ
- * @return string
+ * @return int
  */
 	protected function _getStartYearFromPostData($data) {
 		if (empty($data['start_year'])) {
-			return HolidaysAppController::HOLIDAYS_DATE_MIN;
+			return HolidaysAppController::HOLIDAYS_YEAR_MIN;
 		}
 		return $data['start_year'];
 	}
@@ -302,7 +327,7 @@ class HolidayRrule extends HolidaysAppModel {
  */
 	protected function _getEndYearFromPostData($data) {
 		if (empty($data['end_year'])) {
-			return HolidaysAppController::HOLIDAYS_DATE_MAX;
+			return HolidaysAppController::HOLIDAYS_YEAR_MAX;
 		}
 		return $data['end_year'];
 	}
