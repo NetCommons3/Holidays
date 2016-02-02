@@ -125,7 +125,7 @@ class HolidaysController extends HolidaysAppController {
 			// 登録処理
 			if (! $this->HolidayRrule->saveHolidayRrule($this->request->data)) {
 				$this->NetCommons->handleValidationError($this->HolidayRrule->validationErrors);
-				$this->NetCommons->handleValidationError($this->Holiday->validationErrors);
+				//$this->NetCommons->handleValidationError($this->Holiday->validationErrors);
 				return;
 			}
 			// 登録正常時
@@ -187,6 +187,7 @@ class HolidaysController extends HolidaysAppController {
 
 		// 画面再表示
 		// FUJI 削除しましたのFlashメッセージを設定してから
+		$this->NetCommons->setFlashNotification(__d('holidays', 'Successfully deleted.'), array('class' => 'success'));
 		// 画面再表示
 		$this->redirect('/holidays/holidays/index/');
 	}

@@ -345,20 +345,24 @@ class HolidayRrule extends HolidaysAppModel {
 		if ($data['HolidayRrule']['is_variable'] == false) {
 			return $day;
 		}
-		if ($data[$this->alias]['week'] <= 0) {
-			return $day;
-		} else {
-			list($year, $month, $day) = explode('-', $day);
-			$timestamp = mktime(0, 0, 0, $data[$this->alias]['input_month_day']['month'], 1, $year);
-			$wDay = date("w", $timestamp);
 
-			$wDayNum = $this->_getWeekDayNum($data[$this->alias]['day_of_the_week']);
+		list($year, $month, $day) = explode('-', $day);
+		$timestamp = mktime(0, 0, 0, $data[$this->alias]['input_month_day']['month'], 1, $year);
+		$wDayNum = $this->_getWeekDayNum($data[$this->alias]['day_of_the_week']);
+
+		if ($data[$this->alias]['week'] <= 0) { //最終週
+			$lastDay = date("t", $timestamp);
+			$timestamp = mktime(0, 0, 0, $data[$this->alias]['input_month_day']['month'], $lastDay, $year);
+			$wLastDay = date("w", $timestamp);
+			$timestamp = mktime(0, 0, 0, $month, $lastDay - $wLastDay + $wDayNum, $year);
+		} else {
+			$wDay = date("w", $timestamp);
 			$wDay = ($wDay <= $wDayNum ? 7 + $wDay : $wDay );
 			$newDay = $data[$this->alias]['week'] * 7 + $wDayNum + 1;
 			$timestamp = mktime(0, 0, 0, $month, $newDay - $wDay, $year);
-			$result = date('Y-m-d', $timestamp);
-			return $result;
 		}
+		$result = date('Y-m-d', $timestamp);
+		return $result;
 	}
 
 /**

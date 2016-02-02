@@ -65,6 +65,7 @@ class HolidaysAppModel extends AppModel {
  * @param string &$resultStr $rruleデータから組み立てられたRrule文字列
  * @return bool
  */
+	/* 未使用
 	protected function _concatRRule($rrule, &$resultStr) {
 		$resultStr = '';
 		//$result = array();
@@ -93,5 +94,5 @@ class HolidaysAppModel extends AppModel {
 		//$resultStr = implode(';', $result);
 		return true;
 	}
-
+	*/
 }
