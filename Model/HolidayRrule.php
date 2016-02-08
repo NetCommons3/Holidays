@@ -12,7 +12,9 @@
 App::uses('HolidaysAppModel', 'Holidays.Model');
 
 /**
+ * Holiday Model
  * Summary for HolidayRrule Model
+ * @package NetCommons\Holidays\Model
  */
 class HolidayRrule extends HolidaysAppModel {
 
@@ -166,7 +168,7 @@ class HolidayRrule extends HolidaysAppModel {
  * RRULEデータ登録処理
  *
  * @param array $data 登録データ
- * @return bool
+ * @return bool True on success, false on validation errors
  * @throws InternalErrorException
  */
 	public function saveHolidayRrule($data) {
@@ -177,7 +179,6 @@ class HolidayRrule extends HolidaysAppModel {
 		// SetされているPostデータを整える
 		// 月日入力はCakeの仕様のため、month, day に分割されてしまっているので
 		// DBに入れやすいようにまとめなおす
-
 		$day = isset($data[$this->alias]['input_month_day']['day']) ? $data[$this->alias]['input_month_day']['day'] : '01';
 		$monthDay = $data[$this->alias]['input_month_day']['month'] . '-' . $day;
 		$data[$this->alias]['month_day'] = '2001' . '-' . $monthDay;
@@ -190,60 +191,51 @@ class HolidayRrule extends HolidaysAppModel {
 		$orgEndYear = $this->_getEndYearFromPostData($data[$this->alias]);
 		$data[$this->alias]['end_year'] = $orgEndYear . '-12-31';
 
-		// Rrule文字列作成 FUJI
+		// Rrule文字列(NetCommons3は未設定)
 		$data[$this->alias]['rrule'] = '';
 		//トランザクションBegin
 		$this->begin();
-
 		try {
 			$this->set($data[$this->alias]);
 			if (! $this->validates()) {
 				$this->rollback();
 				return false;
 			}
-			$this->save($data, false);
+			if (!$this->save($data[$this->alias], false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
 			// 更新したRruleID
 			if (! empty($data[$this->alias]['id'])) {
 				$rRuleId = $data[$this->alias]['id'];
 			} else {
 				$rRuleId = $this->getLastInsertID();
 			}
-
 			// 以前の祝日データを削除
 			$this->Holiday->deleteAll(array('holiday_rrule_id' => $rRuleId), false, true);
-
 			// Rruleから実際の日付配列を取得
 			$days = $this->_getDays($data[$this->alias], $orgStartYear, $orgEndYear);
-
 			// 取得した日付の数分Holidayを登録
-			$holiday = Hash::remove($data['Holiday'], '{n}.id'); // kuma add
-			// kuma add 日本語と英語は同じキー。add(新規）のときに、NetCommons/Model/Behavior/のgenerateKeyでキーを設定、更新のときは、従来のものを引き継ぐ
-			$holiday = Hash::insert($holiday, '{n}.holiday_rrule_id', $rRuleId); // kuma move
+			$holiday = Hash::remove($data['Holiday'], '{n}.id');
+			$holiday = Hash::insert($holiday, '{n}.holiday_rrule_id', $rRuleId);
 			foreach ($days as $day) {
 				//休日取得（固定休日/可変休日）
 				$day = $this->_valiable($data, $day);
 				$holiday = Hash::insert($holiday, '{n}.holiday', $day);
-				if (empty($data['Holiday'][0]['key'])) {
+				//キー設定（ 日本語と英語は同じキー）
+				//if (empty($data['Holiday'][0]['key'])) {
 					$key = OriginalKeyBehavior::generateKey('HolidayRrule', $this->useDbConfig);
 					$holiday = Hash::insert($holiday, '{n}.key', $key);
-				}
+				//}
 				//休日登録
-				$holiday2 = $holiday;
-				$this->Holiday->set($holiday2);
-				if (!$this->Holiday->validateMany($holiday2)) { // 引数の配列が乱れる？
-					$this->validationErrors = Hash::merge($this->validationErrors, $this->Holiday->validationErrors);
-					return false;
-				}
 				if (!$this->_saveHolidayData($data, $holiday)) {
-					$this->roolback();
 					return false;
 				}
-
 			}
 			$this->commit();
 		} catch (Exception $ex) {
 			$this->rollback();
 			CakeLog::error($ex);
+			return false;
 		}
 		return true;
 	}
@@ -259,11 +251,16 @@ class HolidayRrule extends HolidaysAppModel {
  * @throws InternalErrorException
  */
 	protected function _saveHolidayData($data, $holiday) {
+		$holiday2 = $holiday;
+		$this->Holiday->set($holiday2);
+		if (!$this->Holiday->validateMany($holiday2)) { // 引数の配列が乱れる？
+			$this->validationErrors = Hash::merge($this->validationErrors, $this->Holiday->validationErrors);
+			return false;
+		}
 		//休日登録
 		if (! $this->Holiday->saveMany($holiday)) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
-
 		//振替休日(振替に該当した場合、休日登録)
 		if (!$this->_substitute($data, $holiday)) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));

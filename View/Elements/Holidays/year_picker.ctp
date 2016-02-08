@@ -15,10 +15,14 @@ $pickerOpt = str_replace('"', "'", json_encode(array(
 	'minDate' => HolidaysAppController::HOLIDAYS_DATE_MIN,
 	'maxDate' => HolidaysAppController::HOLIDAYS_DATE_MAX,
 )));
+if (!isset($options)) {
+	$options = array();
+}
 ?>
 
 <div class="input-group">
 	<?php echo $this->NetCommonsForm->input($fieldName,
+	Hash::merge(
 	array(
 		'div' => false,
 		'label' => false,
@@ -29,10 +33,7 @@ $pickerOpt = str_replace('"', "'", json_encode(array(
 		'ng-model' => $ngModel,
 		'placeholder' => ($fieldName == 'start_year')? HolidaysAppController::HOLIDAYS_YEAR_MIN:HolidaysAppController::HOLIDAYS_YEAR_MAX,
 		'error' => false,
-		'ng-change' => 'changeTargetYear(intval($year))',
-		//'ng-change' => $options['ng-change']
-	));
-	//print_r($fieldName);print_r($ngModel);print_r($year);
+	), $options));
 	?>
 	<div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
 </div>

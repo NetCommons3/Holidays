@@ -25,10 +25,6 @@ NetCommonsApp.controller('Holidays',
         $scope.targetYear = targetYear;
       };
       $scope.changeTargetYear = function() {
-      	//window.alert($scope.targetYear);
-        //$location.path = '/holidays/holidays/index/targetYear:' + $scope.targetYear;
-        //$location.url = '/holidays/holidays/index/targetYear:' + $scope.targetYear;
-        //$location.href = '/holidays/holidays/index/targetYear:' + $scope.targetYear;
 		location.href = '/holidays/holidays/index/targetYear:' + $scope.targetYear;
       }
     }
