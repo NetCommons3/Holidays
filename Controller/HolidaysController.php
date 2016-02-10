@@ -35,7 +35,12 @@ class HolidaysController extends HolidaysAppController {
  */
 	public $components = array(
 		'M17n.SwitchLanguage',
-		'Holidays.Holidays'
+		'Holidays.Holidays',
+		'NetCommons.Permission' => array(
+			'type' => PermissionComponent::CHECK_TYEP_SYSTEM_PLUGIN,
+			'allow' => array()
+		),
+
 	);
 
 /**

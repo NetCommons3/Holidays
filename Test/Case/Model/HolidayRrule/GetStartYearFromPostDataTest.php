@@ -1,8 +1,8 @@
 <?php
 /**
- * Holiday::getHolidayInYear()のテスト
+ * HolidayRrule::getStartYearFromPostData()のテスト
  *
- * @property Holiday $Holiday
+ * @property HolidayRrule $HolidayRrule
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Allcreator <info@allcreator.net>
@@ -15,12 +15,12 @@ App::uses('NetCommonsGetTest', 'NetCommons.TestSuite');
 App::uses('NetCommonsTime', 'NetCommons.Utility');
 
 /**
- * Holiday::getHolidayInYear()のテスト
+ * HolidayRrule::getHolidayRruleFromPostData()のテスト
  *
  * @author Allcreator <info@allcreator.net>
  * @package NetCommons\Holidays\Test\Case\Model\Holiday
  */
-class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
+class HolidayRruleGetStartYearFromPostDataTest extends NetCommonsGetTest {
 
 /**
  * Plugin name
@@ -35,6 +35,7 @@ class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
  * @var array
  */
 	public $fixtures = array(
+		'plugin.holidays.holiday_rrule',
 		'plugin.holidays.holiday',
 	);
 
@@ -43,14 +44,14 @@ class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
  *
  * @var array
  */
-	protected $_modelName = 'Holiday';
+	protected $_modelName = 'HolidayRrule';
 
 /**
  * Method name
  *
  * @var array
  */
-	protected $_methodName = 'getHolidayInYear';
+	protected $_methodName = 'getStartYearFromPostData';
 
 /**
  * Getのテスト
@@ -61,7 +62,7 @@ class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
  *
  * @return void
  */
-	public function testGetHolidayInYear($existYear, $expected) {
+	public function testGetStartYearFromPostData($existYear, $expected) {
 		$model = $this->_modelName;
 		$method = $this->_methodName;
 
@@ -69,13 +70,7 @@ class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
 		$result = $this->$model->$method($existYear);
 
 		//チェック
-		if (empty($result)) {
-			$this->assertEquals($expected['id'], '0');
-		} else {
-			foreach ($expected as $key => $val) {
-				$this->assertEquals($result[$key][$model]['id'], $val);
-			}
-		}
+		$this->assertEquals($result, $expected);
 	}
 
 /**
@@ -88,13 +83,13 @@ class HolidayGetHolidayInYearTest extends NetCommonsGetTest {
  * @return array
  */
 	public function dataProviderGet() {
-		$existYear = '2015';
-		$notExistYear = '2020';
+		$existYear = array(
+				'start_year' => '2015');
+		$defaultStartYear = '2001';
 
 		return array(
-			array($existYear, array('2', '4', '6', '8')), // this is 'id' value! 存在する
-			array($notExistYear, array('id' => '0')), // 存在しない
-			array(null, array('id' => '0')), // 存在しない
+			array($existYear, 2015),
+			array(array(), $defaultStartYear),
 		);
 	}
 
