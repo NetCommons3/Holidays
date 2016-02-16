@@ -8,7 +8,7 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
-$langId = Current::read('Language.id');
+$langId = isset(Current::$current['Language']['id'])?Current::read('Language.id'):1;
 ?>
 <div class="nc-danger-zone" ng-init="dangerZone=false;">
 	<?php echo $this->NetCommonsForm->create('Holiday', array('type' => 'delete',

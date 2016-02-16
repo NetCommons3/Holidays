@@ -14,7 +14,7 @@ App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
 /**
  * HolidaysController Test Case
  *
- * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @author Allcreator <info@allcreator.net>
  * @package NetCommons\Holidays\Test\Case\Controller\HolidaysController
  */
 class HolidaysControllerDeleteTest extends NetCommonsControllerTestCase {
@@ -78,7 +78,7 @@ class HolidaysControllerDeleteTest extends NetCommonsControllerTestCase {
 /**
  * deleteアクションのGETテスト用DataProvider
  *
- * ### 戻り値
+ * #### 戻り値
  *  - role: ロール
  *  - urlOptions: URLオプション
  *  - assert: テストの期待値
@@ -151,7 +151,7 @@ class HolidaysControllerDeleteTest extends NetCommonsControllerTestCase {
 /**
  * deleteアクションのPOSTテスト用DataProvider
  *
- * ### 戻り値
+ * #### 戻り値
  *  - data: 登録データ
  *  - role: ロール
  *  - urlOptions: URLオプション
@@ -223,7 +223,7 @@ class HolidaysControllerDeleteTest extends NetCommonsControllerTestCase {
 /**
  * deleteアクションのExceptionErrorテスト用DataProvider
  *
- * ### 戻り値
+ * #### 戻り値
  *  - mockModel: Mockのモデル
  *  - mockMethod: Mockのメソッド
  *  - data: 登録データ

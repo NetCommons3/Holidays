@@ -94,7 +94,6 @@ class HolidaysController extends HolidaysAppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			// 登録処理
-			$this->log($this->request->data, 'debug');
 			if (! $this->HolidayRrule->saveHolidayRrule($this->request->data)) {
 				$this->NetCommons->handleValidationError($this->HolidayRrule->validationErrors);
 				return;

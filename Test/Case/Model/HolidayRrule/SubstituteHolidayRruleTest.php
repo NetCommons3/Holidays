@@ -118,7 +118,7 @@ class HolidayRruleSubstituteTest extends NetCommonsModelTestCase {
 /**
  * substituteのDataProvider
  *
- * ### 戻り値
+ * #### 戻り値
  *  - data 登録データ
  *  - mockModel Mockのモデル
  *  - mockMethod Mockのメソッド
@@ -168,7 +168,7 @@ class HolidayRruleSubstituteTest extends NetCommonsModelTestCase {
 /**
  * SaveのValidationErrorのDataProvider
  *
- * ### 戻り値
+ * #### 戻り値
  *  - data 登録データ
  *  - mockModel Mockのモデル
  *

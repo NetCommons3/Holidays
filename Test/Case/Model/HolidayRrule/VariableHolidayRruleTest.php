@@ -118,7 +118,7 @@ class HolidayRruleVariableTest extends NetCommonsModelTestCase {
 /**
  * variableのDataProvider
  *
- * ### 戻り値
+ * #### 戻り値
  *  - data 登録データ
  *  - mockModel Mockのモデル
  *  - mockMethod Mockのメソッド
