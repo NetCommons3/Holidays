@@ -228,7 +228,7 @@ class HolidayRrule extends HolidaysAppModel {
 					$holiday = Hash::insert($holiday, '{n}.key', $key);
 				//}
 				//休日登録
-				if (!$this->_saveHolidayData($data, $holiday)) {
+				if (!$this->saveHolidayData($data, $holiday)) {
 					return false;
 				}
 			}
@@ -242,7 +242,7 @@ class HolidayRrule extends HolidaysAppModel {
 	}
 
 /**
- * _saveHolidayData
+ * saveHolidayData
  *
  * save Holiday
  *
@@ -251,7 +251,7 @@ class HolidayRrule extends HolidaysAppModel {
  * @return bool
  * @throws InternalErrorException
  */
-	protected function _saveHolidayData($data, $holiday) {
+	public function saveHolidayData($data, $holiday) {
 		$holiday2 = $holiday;
 		$this->Holiday->set($holiday2);
 		if (!$this->Holiday->validateMany($holiday2)) { // 引数の配列が乱れる？

@@ -110,23 +110,6 @@ class HolidayRruleSaveHolidayRruleTest extends NetCommonsSaveTest {
 	}
 
 /**
- * SaveのExceptionErrorのDataProvider
- *
- * #### 戻り値
- *  - data 登録データ
- *  - mockModel Mockのモデル
- *  - mockMethod Mockのメソッド
- *
- * @return void
- */
-	public function dataProviderSaveOnExceptionError() {
-		return array(
-			array($this->__getData(), 'Holidays.HolidayRrule', 'save'),
-			array($this->__getData(), 'Holidays.Holiday', 'saveMany'),
-			array($this->__getData(), 'Holidays.HolidayRrule', 'substitute'),
-		);
-	}
-/**
  * SaveのExceptionErrorテスト
  *
  * @param array $data 登録データ
@@ -142,6 +125,24 @@ class HolidayRruleSaveHolidayRruleTest extends NetCommonsSaveTest {
 
 		//$this->setExpectedException('InternalErrorException');// pending ここをコメントアウトしないとうまくいかない？？
 		$this->$model->$method($data);
+	}
+
+/**
+ * SaveのExceptionErrorのDataProvider
+ *
+ * #### 戻り値
+ *  - data 登録データ
+ *  - mockModel Mockのモデル
+ *  - mockMethod Mockのメソッド
+ *
+ * @return void
+ */
+	public function dataProviderSaveOnExceptionError() {
+		return array(
+			array($this->__getData(), 'Holidays.Holiday', 'saveMany'),
+			array($this->__getData(), 'Holidays.HolidayRrule', 'save'),
+			array($this->__getData(), 'Holidays.HolidayRrule', 'substitute'),
+		);
 	}
 
 /**
