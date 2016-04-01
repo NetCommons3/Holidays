@@ -72,8 +72,8 @@ class HolidayRruleAfterFindTest extends NetCommonsModelTestCase {
 				'can_substitute' => false,
 				'week' => '1',
 				'day_of_the_week' => 'SU',
-				'start_year' => 2011,
-				'end_year' => 2017,
+				'start_year' => '2011-01-01',
+				'end_year' => '2017-01-01',
 			),
 		)
 		);
@@ -97,7 +97,7 @@ class HolidayRruleAfterFindTest extends NetCommonsModelTestCase {
 		$result = $this->$model->$method($data);
 
 		//チェック
-		$this->assertEquals($result, $expected);
+		$this->assertEquals($expected, $result);
 	}
 
 /**
@@ -122,9 +122,11 @@ class HolidayRruleAfterFindTest extends NetCommonsModelTestCase {
 		$data3 = $this->__getData(1);
 		$data3[0]['HolidayRrule']['month_day'] = $monthDay;
 		$expects3 = $data3;
+		// 以下のフィールドはafterFindで変換かけられる
 		$expects3[0]['HolidayRrule']['input_month_day']['month'] = date('m', strtotime($monthDay));
 		$expects3[0]['HolidayRrule']['input_month_day']['day'] = date('d', strtotime($monthDay));
-
+		$expects3[0]['HolidayRrule']['start_year'] = 2011;
+		$expects3[0]['HolidayRrule']['end_year'] = 2017;
 		return array(
 			array($data1, $data1),
 			array($data2, $data2),

@@ -8,6 +8,8 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+$months = array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6,
+	7 => 7, 8 => 8, 9 => 9, 10 => 10, 11 => 11, 12 => 12);
 ?>
 <div class="form-group">
 	<label>
@@ -49,18 +51,23 @@
 <div class="form-group">
 	<div class="form-inline holidays-sub-setting" ng-show="holidayRrule.isVariable==<?php echo HolidaysAppController::HOLIDAYS_FIXED; ?>">
 		<div class="form-group">
-			<?php echo $this->NetCommonsForm->input('input_month_day', array(
-				'type' => 'date',
-				'div' => '',
-				'label' => __d('holidays', 'month and day'),
-				'class' => 'form-control',
-				'dateFormat' => 'MD',
-				'monthNames' => false,
-				'separator' => '/',
-				'required' => true,
-
+			<?php echo $this->NetCommonsForm->month('input_month_day', array(
+			'div' => '',
+			'label' => __d('holidays', 'month and day'),
+			'class' => 'form-control',
+			'monthNames' => $months,
+			'required' => true,
 			));
 			?>
+			<label><?php echo __d('holidays', 'month'); ?></label>
+			<?php echo $this->NetCommonsForm->day('input_month_day', array(
+			'div' => '',
+			'label' => false,
+			'class' => 'form-control',
+			'required' => true,
+			));
+			?>
+			<label><?php echo __d('holidays', 'day'); ?></label>
 		</div>
 		<div class="form-group holidays-sub-setting">
 			<label class="checkbox-inline">
@@ -78,17 +85,17 @@
 
 	<div class="form-inline holidays-sub-setting" ng-show="holidayRrule.isVariable==<?php echo HolidaysAppController::HOLIDAYS_VARIABLE; ?>">
 		<div class="form-group">
-			<?php echo $this->NetCommonsForm->input('input_month_day', array(
-					'type' => 'date',
-					'label' => __d('holidays', 'Month , week, day of the week'),
-					'dateFormat' => 'M',
-					'monthNames' => false,
-					'separator' => '/',
-					'required' => true,
-					'error' => false,
-					'ng-disabled' => 'holidayRrule.isVariable==' . HolidaysAppController::HOLIDAYS_FIXED
-				));
+			<?php echo $this->NetCommonsForm->month('input_month_day', array(
+			'div' => '',
+			//'label' => __d('holidays', 'month and day'),
+			'class' => 'form-control',
+			'monthNames' => $months,
+			'required' => true,
+			'error' => false,
+			'ng-disabled' => 'holidayRrule.isVariable==' . HolidaysAppController::HOLIDAYS_FIXED
+			));
 			?>
+			<label><?php echo __d('holidays', 'month'); ?></label>
 		</div>
 		<div class="form-group holidays-sub-setting">
 			<?php echo $this->NetCommonsForm->input('week', array(

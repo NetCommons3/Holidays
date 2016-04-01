@@ -73,27 +73,27 @@ msgstr "祝日のタイプ"
 
 #: /View/Elements/HolidayRrules/is_variable.ctp:30
 msgid "Date fixed"
-msgstr "固定"
+msgstr "月日指定"
 
 #: /View/Elements/HolidayRrules/is_variable.ctp:44
 msgid "Specified week and day of the week"
-msgstr "可変"
+msgstr "週・曜日指定"
 
 #: /View/Elements/HolidayRrules/is_variable.ctp:55
 msgid "month and day"
 msgstr "月/日"
+msgid "month"
+msgstr "月"
+msgid "day"
+msgstr "日"
 
 #: /View/Elements/HolidayRrules/is_variable.ctp:74
 msgid "In the case of Sunday , it will be with the next weekday transfer holiday"
 msgstr "日曜日の場合、次の平日を振替休日とする。"
 
-#: /View/Elements/HolidayRrules/is_variable.ctp:83
-msgid "Month , week, day of the week"
-msgstr "月、第○週、曜日"
-
 #: /View/Elements/HolidayRrules/range.ctp:14
 msgid "Specified target range"
-msgstr "範囲"
+msgstr "設定する年の範囲"
 
 #: /View/Elements/HolidayRrules/range.ctp:24
 msgid "-"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: /View/Elements/HolidayRrules/title.ctp:27 /View/Holidays/index.ctp:26
 msgid "title"
-msgstr "名称"
+msgstr "祝日の名称"
 
 #: /View/Elements/Holidays/add_button.ctp:19
 msgid "Create holiday"

@@ -103,7 +103,7 @@ class HolidaysController extends HolidaysAppController {
 			return;
 		}
 		// デフォルトデータ取り出し
-		$data = $this->HolidayRrule->create();
+		$data = $this->HolidayRrule->getDefaultData();
 		$holiday = $this->Holiday->create();
 		// 新規登録画面表示
 		$this->request->data = $data;

@@ -226,13 +226,6 @@ class HolidayRruleSaveHolidayRruleTest extends NetCommonsSaveTest {
 			'conditions' => array('id' => $id),
 		));
 
-		//登録処理後のHolidayRruleのチェック
-		//開始年
-		$before['HolidayRrule']['start_year'] = $data['HolidayRrule']['start_year'] . '-01-01 00:00:00';
-
-		//終了年
-		$before['HolidayRrule']['end_year'] = $data['HolidayRrule']['end_year'] . '-12-31 00:00:00';
-
 		if (isset($data['HolidayRrule']['id'])) {
 			$before['HolidayRrule'] = Hash::remove($before['HolidayRrule'], 'created');
 			$before['HolidayRrule'] = Hash::remove($before['HolidayRrule'], 'created_user');

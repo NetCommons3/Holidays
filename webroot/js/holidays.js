@@ -22,7 +22,7 @@ NetCommonsApp.controller('Holidays',
        * @return {void}
        */
       $scope.initialize = function(targetYear) {
-        $scope.targetYear = targetYear;
+        $scope.targetYear = targetYear.toString(10);
       };
       $scope.changeTargetYear = function() {
         location.href =
@@ -44,6 +44,10 @@ NetCommonsApp.controller('Holidays.edit',
        */
       $scope.initialize = function(holidayRrule) {
         $scope.holidayRrule = holidayRrule.holidayRrule;
+        $scope.holidayRrule.startYear =
+            $scope.holidayRrule.startYear.toString(10);
+        $scope.holidayRrule.endYear =
+            $scope.holidayRrule.endYear.toString(10);
       };
     }
 );

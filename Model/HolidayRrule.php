@@ -70,6 +70,8 @@ class HolidayRrule extends HolidaysAppModel {
 			// 入力用データ項目設定
 			$val[$this->alias]['input_month_day']['month'] = date('m', strtotime($val[$this->alias]['month_day']));
 			$val[$this->alias]['input_month_day']['day'] = date('d', strtotime($val[$this->alias]['month_day']));
+			$val[$this->alias]['start_year'] = date('Y', strtotime($val[$this->alias]['start_year']));
+			$val[$this->alias]['end_year'] = date('Y', strtotime($val[$this->alias]['end_year']));
 		}
 		return $results;
 	}
@@ -270,37 +272,21 @@ class HolidayRrule extends HolidaysAppModel {
 	}
 
 /**
- * _makeRrule
+ * getDefaultData
  *
- * Postされた変数からRruleを組み立てる
+ * 新規作成時のデフォルトデータを取り出す
  *
- * @param array $data Postデータ
- * @return string
+ * @return array
  */
-	/* 未使用になった
-	protected function _makeRrule($data) {
-		$rruleStr = '';
-		$endDateTime = $this->getEndYearFromPostData($data);
-		$endDate = date('Ymd', strtotime($endDateTime));
-		$endTime = date('His', strtotime($endDateTime));
-		$rrule = array(
-			'FREQ' => 'YEARLY',
-			'INTERVAL' => 1,
-			'UNTIL' => $endDate . 'T' . $endTime,
-			'BYMONTH' => array(intval(intval($data['input_month_day']['month']))),
-		);
-		if ($data['is_variable'] == HolidaysAppController::HOLIDAYS_VARIABLE) {
-			$week = intval($data['week']);
-			$dayOfTheWeek = $data['day_of_the_week'];
-			$rrule['BYDAY'] = array($week . $dayOfTheWeek);
-		}
-
-		$this->_concatRRule($rrule, $rruleStr);
-
-		return $rruleStr;
+	public function getDefaultData() {
+		$data = $this->create();
+		$now = strtotime((new NetCommonsTime())->getNowDatetime());
+		$data[$this->alias]['input_month_day']['month'] = date('m', $now);
+		$data[$this->alias]['input_month_day']['day'] = date('d', $now);
+		$data[$this->alias]['start_year'] = HolidaysAppController::HOLIDAYS_YEAR_MIN;
+		$data[$this->alias]['end_year'] = HolidaysAppController::HOLIDAYS_YEAR_MAX;
+		return $data;
 	}
-	*/
-
 /**
  * getStartYearFromPostData
  *

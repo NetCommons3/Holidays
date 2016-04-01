@@ -15,18 +15,22 @@
 	</label>
 
 	<div class="form-inline">
-		<?php echo $this->element('Holidays.Holidays/year_picker', array(
-			'fieldName' => 'start_year',
-			'year' => $this->request->data['HolidayRrule']['start_year'],
-			'ngModel' => 'holidayRrule.startYear',
+		<?php echo $this->NetCommonsForm->input('start_year', array(
+		'type' => 'number',
+		'label' => false,
+		'min' => 1970,
+		'max' => 2033,
+		'error' => false,
 		)); ?>
 
 		<?php echo __d('holidays', '-'); ?>
 
-		<?php echo $this->element('Holidays.Holidays/year_picker', array(
-			'fieldName' => 'end_year',
-			'year' => $this->request->data['HolidayRrule']['end_year'],
-			'ngModel' => 'holidayRrule.endYear',
+		<?php echo $this->NetCommonsForm->input('end_year', array(
+		'type' => 'number',
+		'label' => false,
+		'min' => 1970,
+		'max' => 2033,
+		'error' => false,
 		)); ?>
 		<?php echo $this->NetCommonsForm->error('end_year'); ?>
 	</div>

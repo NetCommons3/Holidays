@@ -15,6 +15,6 @@
 		'fieldName' => 'targetYear',
 		'year' => $targetYear,
 		'ngModel' => 'targetYear',
-		'options' => array('ng-change' => 'changeTargetYear(intval($year))')
+		'options' => array('ng-change' => 'changeTargetYear()')
 		)); ?>
  </div>

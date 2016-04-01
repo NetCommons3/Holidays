@@ -8,33 +8,21 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
-
-echo $this->element('NetCommons.datetimepicker');
-$pickerOpt = str_replace('"', "'", json_encode(array(
-	'format' => 'YYYY',
-	'minDate' => HolidaysAppController::HOLIDAYS_DATE_MIN,
-	'maxDate' => HolidaysAppController::HOLIDAYS_DATE_MAX,
-)));
-if (!isset($options)) {
-	$options = array();
+for ($i = HolidaysAppController::HOLIDAYS_YEAR_MIN; $i <= HolidaysAppController::HOLIDAYS_YEAR_MAX; $i++) {
+	$yearArray[$i] = $i;
 }
 ?>
-
-<div class="input-group">
-	<?php echo $this->NetCommonsForm->input($fieldName,
+<div class="form-group">
+	<?php echo $this->NetCommonsForm->select($fieldName, $yearArray,
 	Hash::merge(
 	array(
-		'div' => false,
 		'label' => false,
-		'type' => 'text',
-		'datetimepicker' => 'datetimepicker',
-		'datetimepicker-options' => $pickerOpt,
+		'empty' => false,
+		'class' => 'form-control',
 		'value' => (empty($year)) ? '' : intval($year),
 		'ng-model' => $ngModel,
-		'placeholder' => ($fieldName == 'start_year')? HolidaysAppController::HOLIDAYS_YEAR_MIN:HolidaysAppController::HOLIDAYS_YEAR_MAX,
 		'error' => false,
 	), $options));
 	?>
-	<div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
 </div>
 
