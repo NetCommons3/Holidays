@@ -10,8 +10,7 @@
  */
 
 NetCommonsApp.controller('Holidays',
-    function($scope, $location, $sce, $timeout, $log, $attrs,
-        NetCommonsBase, NetCommonsFlash) {
+    function($scope, $location, $sce, $timeout, $log, $attrs) {
 
       //$attrsと$evalを使い、ng-initディレクティブの評価をcontrollerの最初に行う.
       $scope.$eval($attrs.ngInit);
@@ -31,8 +30,7 @@ NetCommonsApp.controller('Holidays',
     }
 );
 NetCommonsApp.controller('Holidays.edit',
-    function($scope, $sce, $timeout, $log, $attrs,
-        NetCommonsBase, NetCommonsFlash) {
+    function($scope, $sce, $timeout, $log, $attrs) {
 
       //$attrsと$evalを使い、ng-initディレクティブの評価をcontrollerの最初に行う.
       $scope.$eval($attrs.ngInit);
