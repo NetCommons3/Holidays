@@ -27,6 +27,8 @@ class HolidaysControllerEditTest extends NetCommonsControllerTestCase {
 	public $fixtures = array(
 		'plugin.holidays.holiday_rrule',
 		'plugin.holidays.holiday',
+		'plugin.holidays.plugin4test',
+		'plugin.holidays.plugins_role4test',
 	);
 
 /**
@@ -82,15 +84,6 @@ class HolidaysControllerEditTest extends NetCommonsControllerTestCase {
 			),
 		);
 		return $data;
-	}
-
-/**
- * setUp method
- *
- * @return void
- */
-	public function setUp() {
-		parent::setUp();
 	}
 
 /**
@@ -283,7 +276,7 @@ class HolidaysControllerEditTest extends NetCommonsControllerTestCase {
 			array(
 				'data' => $data, 'role' => Role::ROOM_ROLE_KEY_CHIEF_EDITOR,
 				'urlOptions' => array(),
-				'exception' => 'ForbiddenException'
+				//'exception' => 'ForbiddenException'
 			),
 		);
 	}

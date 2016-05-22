@@ -191,7 +191,9 @@ class HolidaysController extends HolidaysAppController {
 
 		// 画面再表示
 		// FUJI 削除しましたのFlashメッセージを設定してから
-		$this->NetCommons->setFlashNotification(__d('holidays', 'Successfully deleted.'), array('class' => 'success'));
+		$this->NetCommons->setFlashNotification(
+			__d('holidays', 'Successfully deleted.'), array('class' => 'success')
+		);
 		// 画面再表示
 		$this->redirect('/holidays/holidays/index/');
 	}

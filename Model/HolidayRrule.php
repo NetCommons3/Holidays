@@ -68,8 +68,9 @@ class HolidayRrule extends HolidaysAppModel {
 				continue;
 			}
 			// 入力用データ項目設定
-			$val[$this->alias]['input_month_day']['month'] = date('m', strtotime($val[$this->alias]['month_day']));
-			$val[$this->alias]['input_month_day']['day'] = date('d', strtotime($val[$this->alias]['month_day']));
+			$monthDay = $val[$this->alias]['month_day'];
+			$val[$this->alias]['input_month_day']['month'] = date('m', strtotime($monthDay));
+			$val[$this->alias]['input_month_day']['day'] = date('d', strtotime($monthDay));
 			$val[$this->alias]['start_year'] = date('Y', strtotime($val[$this->alias]['start_year']));
 			$val[$this->alias]['end_year'] = date('Y', strtotime($val[$this->alias]['end_year']));
 		}
@@ -182,7 +183,11 @@ class HolidayRrule extends HolidaysAppModel {
 		// SetされているPostデータを整える
 		// 月日入力はCakeの仕様のため、month, day に分割されてしまっているので
 		// DBに入れやすいようにまとめなおす
-		$day = isset($data[$this->alias]['input_month_day']['day']) ? $data[$this->alias]['input_month_day']['day'] : '01';
+		if (isset($data[$this->alias]['input_month_day']['day'])) {
+			$day = $data[$this->alias]['input_month_day']['day'];
+		} else {
+			$day = '01';
+		}
 		$monthDay = $data[$this->alias]['input_month_day']['month'] . '-' . $day;
 		$data[$this->alias]['month_day'] = '2001' . '-' . $monthDay;
 
@@ -257,7 +262,9 @@ class HolidayRrule extends HolidaysAppModel {
 		$holiday2 = $holiday;
 		$this->Holiday->set($holiday2);
 		if (!$this->Holiday->validateMany($holiday2)) { // 引数の配列が乱れる？
-			$this->validationErrors = Hash::merge($this->validationErrors, $this->Holiday->validationErrors);
+			$this->validationErrors = Hash::merge(
+				$this->validationErrors, $this->Holiday->validationErrors
+			);
 			return false;
 		}
 		//休日登録
@@ -395,8 +402,9 @@ class HolidayRrule extends HolidaysAppModel {
 			$substitute[1]['is_substitute'] = true; // 振替休日（英語）
 			$substitute[2]['is_substitute'] = true; // 振替休日（日本語）
 
-			$substitute[1]['holiday'] = strftime('%Y/%m/%d', strtotime($date . "+1 day"));// +1日(yyyy-mm-dd)
-			$substitute[2]['holiday'] = strftime('%Y/%m/%d', strtotime($date . "+1 day"));// +1日(yyyy-mm-dd)
+			$nextDay = strtotime($date . '+1 day');
+			$substitute[1]['holiday'] = strftime('%Y/%m/%d', $nextDay); // +1日(yyyy-mm-dd)
+			$substitute[2]['holiday'] = strftime('%Y/%m/%d', $nextDay); // +1日(yyyy-mm-dd)
 			return $substitute;
 		} else {
 			return null;
