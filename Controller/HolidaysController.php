@@ -25,7 +25,7 @@ class HolidaysController extends HolidaysAppController {
  * @var array
  */
 	public $uses = array(
-		'Languages.Language'
+		'M17n.Language'
 	);
 
 /**
