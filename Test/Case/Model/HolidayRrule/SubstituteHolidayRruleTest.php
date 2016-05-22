@@ -98,8 +98,7 @@ class HolidayRruleSubstituteTest extends NetCommonsModelTestCase {
  * substituteのテスト
  *
  * @param array $data
- * @param array $day
- * @param array $expected 期待値（取得したキー情報）
+ * @param array $substitute
  * @dataProvider dataProviderSubstitute
  *
  * @return void

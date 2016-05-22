@@ -48,7 +48,7 @@ class HolidaysControllerEditTest extends NetCommonsControllerTestCase {
 /**
  * テストDataの取得
  *
- * @param int $int ID
+ * @param int $id ID
  * @return array
  */
 	private function __getData($id = null) {
