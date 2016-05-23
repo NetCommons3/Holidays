@@ -27,6 +27,8 @@ class HolidaysControllerDeleteTest extends NetCommonsControllerTestCase {
 	public $fixtures = array(
 		'plugin.holidays.holiday_rrule',
 		'plugin.holidays.holiday',
+		'plugin.holidays.plugin4test',
+		'plugin.holidays.plugins_role4test',
 	);
 
 /**

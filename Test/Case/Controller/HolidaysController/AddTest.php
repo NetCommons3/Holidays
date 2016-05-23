@@ -27,6 +27,8 @@ class HolidaysControllerAddTest extends NetCommonsControllerTestCase {
 	public $fixtures = array(
 		'plugin.holidays.holiday_rrule',
 		'plugin.holidays.holiday',
+		'plugin.holidays.plugin4test',
+		'plugin.holidays.plugins_role4test',
 	);
 
 /**
@@ -46,7 +48,7 @@ class HolidaysControllerAddTest extends NetCommonsControllerTestCase {
 /**
  * テストDataの取得
  *
- * @param int $int ID
+ * @param int $id ID
  * @return array
  */
 	private function __getData($id = null) {
