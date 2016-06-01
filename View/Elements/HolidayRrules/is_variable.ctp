@@ -69,10 +69,10 @@ for ($i = 1; $i <= 31; $i++) {
 				<div class="checkbox holidays-sub-setting"
 						ng-show="holidayRrule.isVariable == <?php echo HolidaysAppController::HOLIDAYS_FIXED ?>">
 					<?php
-						echo $this->NetCommonsForm->checkbox('can_substitute', array(
+						echo $this->NetCommonsForm->checkbox('HolidayRrule.can_substitute', array(
 							'type' => 'checkbox',
 							'value' => true,
-							'label' => __d('holidays', 'In the case of Sunday , it will be with the next weekday transfer holiday'),
+							'label' => __d('holidays', 'In the case of Sunday, it will be with the next weekday transfer holiday'),
 							'div' => false,
 						));
 					?>
