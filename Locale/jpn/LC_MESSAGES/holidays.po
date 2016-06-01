@@ -94,7 +94,7 @@ msgstr "名称を入力してください。(英語、日本語ともに入力�
 
 #: /View/Elements/HolidayRrules/is_variable.ctp:14
 msgid "holiday specification type"
-msgstr "祝日のタイプ"
+msgstr "祝日タイプ"
 
 #: /View/Elements/HolidayRrules/is_variable.ctp:30
 msgid "Date fixed"
@@ -113,7 +113,7 @@ msgid "day"
 msgstr "日"
 
 #: /View/Elements/HolidayRrules/is_variable.ctp:74
-msgid "In the case of Sunday , it will be with the next weekday transfer holiday"
+msgid "In the case of Sunday, it will be with the next weekday transfer holiday"
 msgstr "日曜日の場合、次の平日を振替休日とする。"
 
 #: /View/Elements/HolidayRrules/range.ctp:14
@@ -126,7 +126,7 @@ msgstr ""
 
 #: /View/Elements/HolidayRrules/title.ctp:27 /View/Holidays/index.ctp:26
 msgid "title"
-msgstr "祝日の名称"
+msgstr "祝日名"
 
 #: /View/Elements/Holidays/add_button.ctp:19
 msgid "Create holiday"
@@ -135,6 +135,10 @@ msgstr "追加"
 #: /View/Elements/Holidays/year_select.ctp:13
 msgid "Year"
 msgstr "年"
+
+#: /View/Elements/Holidays/year_select.ctp:13
+msgid "%s year"
+msgstr "%s年"
 
 #: /View/Holidays/index.ctp:25
 msgid "date"
@@ -149,3 +153,6 @@ msgstr "削除しました。"
 
 msgid "Please input the end year is bigger than start year."
 msgstr "終了年は、開始年より大きい値を入力してください。"
+
+msgid "You can add, edit, and delete the holiday of %s year."
+msgstr "%s年の祝日を追加・編集・削除することができます。"
