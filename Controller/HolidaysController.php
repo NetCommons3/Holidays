@@ -34,13 +34,16 @@ class HolidaysController extends HolidaysAppController {
  * @var array
  */
 	public $components = array(
-		'M17n.SwitchLanguage',
+		'M17n.SwitchLanguage' => array(
+			'fields' => array(
+				'Holiday.title'
+			)
+		),
 		'Holidays.Holidays',
 		'NetCommons.Permission' => array(
 			'type' => PermissionComponent::CHECK_TYEP_SYSTEM_PLUGIN,
 			'allow' => array()
 		),
-
 	);
 
 /**
@@ -53,6 +56,7 @@ class HolidaysController extends HolidaysAppController {
 		'NetCommons.Date',
 		'NetCommons.Button',
 		'NetCommons.NetCommonsHtml',
+		'NetCommons.TableList'
 	);
 
 /**
@@ -93,6 +97,9 @@ class HolidaysController extends HolidaysAppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			//他言語が入力されていない場合、表示されている言語データをセット
+			$this->SwitchLanguage->setM17nRequestValue();
+
 			// 登録処理
 			if (! $this->HolidayRrule->saveHolidayRrule($this->request->data)) {
 				$this->NetCommons->handleValidationError($this->HolidayRrule->validationErrors);
@@ -126,6 +133,9 @@ class HolidaysController extends HolidaysAppController {
 	public function edit($rruleId = null) {
 		// EditのときはPUTでくる
 		if ($this->request->is('put')) {
+			//他言語が入力されていない場合、表示されている言語データをセット
+			$this->SwitchLanguage->setM17nRequestValue();
+
 			// 登録処理
 			if (! $this->HolidayRrule->saveHolidayRrule($this->request->data)) {
 				$this->NetCommons->handleValidationError($this->HolidayRrule->validationErrors);

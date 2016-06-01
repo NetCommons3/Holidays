@@ -90,8 +90,9 @@ class Holiday extends HolidaysAppModel {
 			'conditions' => array(
 				'language_id' => Current::read('Language.id'),
 				'holiday >=' => $from,
-				'holiday <=' => $to),
-			'recursive' => -1,
+				'holiday <=' => $to
+			),
+			'recursive' => 0,
 			'order' => array('holiday')
 		));
 		return $holidays;

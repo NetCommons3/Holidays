@@ -8,21 +8,24 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
 for ($i = HolidaysAppController::HOLIDAYS_YEAR_MIN; $i <= HolidaysAppController::HOLIDAYS_YEAR_MAX; $i++) {
-	$yearArray[$i] = $i;
+	$yearArray[$i] = sprintf(__d('holidays', '%s year'), $i);
 }
 ?>
 <div class="form-group">
 	<?php echo $this->NetCommonsForm->select($fieldName, $yearArray,
-	Hash::merge(
-	array(
-		'label' => false,
-		'empty' => false,
-		'class' => 'form-control',
-		'value' => (empty($year)) ? '' : intval($year),
-		'ng-model' => $ngModel,
-		'error' => false,
-	), $options));
+		Hash::merge(
+			array(
+				'label' => false,
+				'empty' => false,
+				'class' => 'form-control',
+				'value' => (empty($year)) ? '' : intval($year),
+				'ng-model' => $ngModel,
+				'error' => false,
+			),
+			$options
+		));
 	?>
 </div>
 

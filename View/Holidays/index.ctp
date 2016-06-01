@@ -8,50 +8,97 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
 echo $this->NetCommonsHtml->script(array(
 	'/holidays/js/holidays.js',
 ));
+
+echo $this->NetCommonsHtml->css(array(
+	'/holidays/css/holidays.css',
+));
 ?>
+
 <div ng-controller="Holidays" ng-init="initialize(<?php echo $targetYear; ?>)">
-	<div class="pull-left">
-		<?php echo $this->element('Holidays.Holidays/year_select'); ?>
-	</div>
+	<?php
+		echo $this->MessageFlash->description(
+			__d('holidays', 'You can add, edit, and delete the holiday of %s year.', $targetYear)
+		);
+	?>
 
-	<?php echo $this->element('Holidays.Holidays/add_button'); ?>
+	<header class="clearfix">
+		<div class="pull-left">
+			<?php
+				echo $this->element('Holidays.Holidays/year_picker', array(
+					'fieldName' => 'targetYear',
+					'year' => $targetYear,
+					'ngModel' => 'targetYear',
+					'options' => array('ng-change' => 'changeTargetYear()')
+				));
+			?>
+		</div>
 
-	<table class="table table-condensed">
-		<thead>
-			<tr>
-				<th><?php echo __d('holidays', 'date'); ?></th>
-				<th><?php echo __d('holidays', 'title'); ?></th>
-			</tr>
-		</thead>
-		<tbody>
-		<?php if (count($holidays) === 0) :?>
-			<tr><td colspan=2><?php echo __d('holidays', 'No holiday'); ?></td></tr>
-		<?php else: ?>
-			<?php foreach ($holidays as $holiday): ?>
-				<tr class="grid_row">
-					<td class="grid_holiday holiday_grid_date">
-						<?php echo
-							CakeTime::format($this->NetCommonsTime->toUserDatetime($holiday['Holiday']['holiday']), '%m/%d');
-						?>
-					</td>
-					<td class="grid_summary holiday_grid_summary">
-						<?php if ($holiday['Holiday']['is_substitute'] === 1) :?>
-							<?php echo $holiday['Holiday']['title']; ?>
-						<?php else: ?>
-							<?php echo $this->NetCommonsHtml->link(
-								$holiday['Holiday']['title'],
-								NetCommonsUrl::actionUrl(array(
-									'action' => 'edit',
-									'key' => $holiday['Holiday']['holiday_rrule_id']))
-							); ?>
-						<?php endif; ?>
-					</td>
+		<div class="pull-right">
+			<?php
+				echo $this->Button->addLink(
+					'',
+					array(
+						'controller' => 'holidays',
+						'action' => 'add',
+					),
+					array('tooltip' => __d('holidays', 'Create holiday'))
+				);
+			?>
+		</div>
+	</header>
+
+	<?php if ($holidays) : ?>
+		<?php echo $this->TableList->startTable(); ?>
+			<thead>
+				<tr>
+					<th><?php echo __d('holidays', 'date'); ?></th>
+					<th><?php echo __d('holidays', 'title'); ?></th>
+					<th><?php echo __d('holidays', 'holiday specification type'); ?></th>
+					<th></th>
 				</tr>
-			<?php endforeach; ?>
-		<?php endif; ?>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<?php foreach ($holidays as $holiday): ?>
+					<tr>
+						<td>
+							<?php
+								echo CakeTime::format(
+									$this->NetCommonsTime->toUserDatetime($holiday['Holiday']['holiday']), '%m/%d'
+								);
+								if ($holiday['Holiday']['is_substitute'] !== 1) {
+									echo $this->LinkButton->edit(
+										'',
+										NetCommonsUrl::actionUrl(array(
+											'action' => 'edit',
+											'key' => $holiday['Holiday']['holiday_rrule_id'])
+										),
+										array('iconSize' => 'btn-xs')
+									);
+								}
+							?>
+						</td>
+						<td>
+							<?php echo h($holiday['Holiday']['title']); ?>
+						</td>
+						<td>
+							<?php if ($holiday['HolidayRrule']['is_variable']) : ?>
+								<?php echo __d('holidays', 'Specified week and day of the week'); ?>
+							<?php else : ?>
+								<?php echo __d('holidays', 'Date fixed'); ?>
+							<?php endif; ?>
+						</td>
+						<td>
+							<?php echo $this->element('Holidays.Holidays/holiday_type', array('holiday' => $holiday)); ?>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		<?php echo $this->TableList->endTable(); ?>
+	<?php else : ?>
+		<?php echo __d('holidays', 'No holiday'); ?>
+	<?php endif; ?>
 </div>
