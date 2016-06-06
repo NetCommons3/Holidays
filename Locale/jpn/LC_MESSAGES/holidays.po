@@ -156,3 +156,19 @@ msgstr "終了年は、開始年より大きい値を入力してください。
 
 msgid "You can add, edit, and delete the holiday of %s year."
 msgstr "%s年の祝日を追加・編集・削除することができます。"
+
+
+msgid "Sun"
+msgstr "日"
+msgid "Mon"
+msgstr "月"
+msgid "Tue"
+msgstr "火"
+msgid "Wed"
+msgstr "水"
+msgid "Thu"
+msgstr "木"
+msgid "Fri"
+msgstr "金"
+msgid "Sat"
+msgstr "土"

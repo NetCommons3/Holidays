@@ -69,6 +69,15 @@ echo $this->NetCommonsHtml->css(array(
 								echo CakeTime::format(
 									$this->NetCommonsTime->toUserDatetime($holiday['Holiday']['holiday']), '%m/%d'
 								);
+							?>
+							(
+							<?php
+								echo __d('holidays', CakeTime::format(
+									$this->NetCommonsTime->toUserDatetime($holiday['Holiday']['holiday']), '%a'
+								));
+							?>
+							)
+							<?php
 								if ($holiday['Holiday']['is_substitute'] !== 1) {
 									echo $this->LinkButton->edit(
 										'',
