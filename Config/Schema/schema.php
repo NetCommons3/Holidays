@@ -78,9 +78,9 @@ class HolidaysSchema extends CakeSchema {
 	public $holidays = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary', 'comment' => 'ID | | | '),
 		'key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'holiday_rrule_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'index'),
+		'holiday_rrule_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'language_id' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 6, 'unsigned' => false, 'comment' => 'language id | 言語ID | languages.id | '),
-		'holiday' => array('type' => 'date', 'null' => false, 'default' => null),
+		'holiday' => array('type' => 'date', 'null' => false, 'default' => null, 'key' => 'index'),
 		'title' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '祝日名称', 'charset' => 'utf8'),
 		'is_substitute' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => '0:振替ではない,1:振替休日'),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => '0', 'unsigned' => false, 'comment' => 'created user | 作成者 | users.id | '),
@@ -89,7 +89,7 @@ class HolidaysSchema extends CakeSchema {
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => 'modified datetime | 更新日時 | | '),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'holiday_rrule_id' => array('column' => 'holiday_rrule_id', 'unique' => 0)
+			'holiday' => array('column' => array('holiday', 'language_id'), 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
