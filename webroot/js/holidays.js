@@ -10,42 +10,44 @@
  */
 
 NetCommonsApp.controller('Holidays',
-    function($scope, $location, $sce, $timeout, $log, $attrs) {
+    ['$scope', '$location', '$sce', '$timeout', '$log', '$attrs',
+      function($scope, $location, $sce, $timeout, $log, $attrs) {
 
-      //$attrsと$evalを使い、ng-initディレクティブの評価をcontrollerの最初に行う.
-      $scope.$eval($attrs.ngInit);
+        //$attrsと$evalを使い、ng-initディレクティブの評価をcontrollerの最初に行う.
+        $scope.$eval($attrs.ngInit);
 
-      /**
-       * Initialize
-       *
-       * @return {void}
-       */
-      $scope.initialize = function(targetYear) {
-        $scope.targetYear = targetYear.toString(10);
-      };
-      $scope.changeTargetYear = function() {
-        location.href =
-            '/holidays/holidays/index/targetYear:' + $scope.targetYear;
-      };
-    }
+        /**
+         * Initialize
+         *
+         * @return {void}
+         */
+        $scope.initialize = function(targetYear) {
+          $scope.targetYear = targetYear.toString(10);
+        };
+        $scope.changeTargetYear = function() {
+          location.href =
+              '/holidays/holidays/index/targetYear:' + $scope.targetYear;
+        };
+     }]
 );
 NetCommonsApp.controller('Holidays.edit',
-    function($scope, $sce, $timeout, $log, $attrs) {
+    ['$scope', '$sce', '$timeout', '$log', '$attrs',
+      function($scope, $sce, $timeout, $log, $attrs) {
 
-      //$attrsと$evalを使い、ng-initディレクティブの評価をcontrollerの最初に行う.
-      $scope.$eval($attrs.ngInit);
+        //$attrsと$evalを使い、ng-initディレクティブの評価をcontrollerの最初に行う.
+        $scope.$eval($attrs.ngInit);
 
-      /**
-       * Initialize
-       *
-       * @return {void}
-       */
-      $scope.initialize = function(holidayRrule) {
-        $scope.holidayRrule = holidayRrule.holidayRrule;
-        $scope.holidayRrule.startYear =
-            $scope.holidayRrule.startYear.toString(10);
-        $scope.holidayRrule.endYear =
-            $scope.holidayRrule.endYear.toString(10);
-      };
-    }
+        /**
+         * Initialize
+         *
+         * @return {void}
+         */
+        $scope.initialize = function(holidayRrule) {
+          $scope.holidayRrule = holidayRrule.holidayRrule;
+          $scope.holidayRrule.startYear =
+              $scope.holidayRrule.startYear.toString(10);
+          $scope.holidayRrule.endYear =
+              $scope.holidayRrule.endYear.toString(10);
+        };
+     }]
 );
