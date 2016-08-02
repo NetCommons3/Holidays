@@ -15,14 +15,14 @@ $langId = isset(Current::$current['Language']['id'])?Current::read('Language.id'
 			'url' => array('action' => 'delete', $this->request->data['HolidayRrule']['id'])
 	)); ?>
 
-	<uib-accordion close-others="false">
-		<uib-accordion-group is-open="dangerZone" class="panel-danger">
-			<uib-accordion-heading class="clearfix">
+	<div uib-accordion close-others="false">
+		<div uib-accordion-group is-open="dangerZone" class="panel-danger">
+			<div uib-accordion-heading class="clearfix">
 				<span style="cursor: pointer">
 					<?php echo __d('net_commons', 'Danger Zone'); ?>
 				</span>
 				<span class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': dangerZone, 'glyphicon-chevron-right': ! dangerZone}"></span>
-			</uib-accordion-heading>
+			</div>
 
 			<div class="pull-left">
 				<?php echo sprintf(__d('net_commons', 'Delete all data associated with the %s.'), $this->request->data['Holiday'][$langId]['title']); ?>
@@ -34,8 +34,8 @@ $langId = isset(Current::$current['Language']['id'])?Current::read('Language.id'
 					sprintf(__d('net_commons', 'Deleting the %s. Are you sure to proceed?'), $this->request->data['Holiday'][$langId]['title']),
 					array('addClass' => 'pull-right')
 				); ?>
-		</uib-accordion-group>
-	</uib-accordion>
+		</div>
+	</div>
 
 	<?php echo $this->NetCommonsForm->end(); ?>
 </div>
