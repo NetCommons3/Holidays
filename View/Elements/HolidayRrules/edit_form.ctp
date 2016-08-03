@@ -31,7 +31,7 @@ echo $this->NetCommonsHtml->css('/holidays/css/holidays.css');
 		<?php echo $this->Button->cancelAndSave(
 				__d('net_commons', 'Cancel'),
 				__d('net_commons', 'OK'),
-				$this->NetCommonsHtml->url('/holidays/holidays/index')
+				'/holidays/holidays/index'
 			); ?>
 	</div>
 
