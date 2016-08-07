@@ -12,7 +12,7 @@ $langId = isset(Current::$current['Language']['id'])?Current::read('Language.id'
 ?>
 <div class="nc-danger-zone" ng-init="dangerZone=false;">
 	<?php echo $this->NetCommonsForm->create('Holiday', array('type' => 'delete',
-			'url' => array('action' => 'delete', $this->request->data['HolidayRrule']['id'])
+			'url' => NetCommonsUrl::actionUrlAsArray(array('action' => 'delete', $this->request->data['HolidayRrule']['id']))
 	)); ?>
 
 	<div uib-accordion close-others="false">

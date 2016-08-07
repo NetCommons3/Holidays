@@ -10,8 +10,8 @@
  */
 
 NetCommonsApp.controller('Holidays',
-    ['$scope', '$location', '$sce', '$timeout', '$log', '$attrs',
-      function($scope, $location, $sce, $timeout, $log, $attrs) {
+    ['$scope', '$window', '$attrs', 'NC3_URL',
+      function($scope, $window, $attrs, NC3_URL) {
 
         //$attrsと$evalを使い、ng-initディレクティブの評価をcontrollerの最初に行う.
         $scope.$eval($attrs.ngInit);
@@ -25,14 +25,14 @@ NetCommonsApp.controller('Holidays',
           $scope.targetYear = targetYear.toString(10);
         };
         $scope.changeTargetYear = function() {
-          location.href =
-              '/holidays/holidays/index/targetYear:' + $scope.targetYear;
+          $window.location.href =
+              NC3_URL + '/holidays/holidays/index/targetYear:' + $scope.targetYear;
         };
      }]
 );
 NetCommonsApp.controller('Holidays.edit',
-    ['$scope', '$sce', '$timeout', '$log', '$attrs',
-      function($scope, $sce, $timeout, $log, $attrs) {
+    ['$scope', '$attrs',
+      function($scope, $attrs) {
 
         //$attrsと$evalを使い、ng-initディレクティブの評価をcontrollerの最初に行う.
         $scope.$eval($attrs.ngInit);
