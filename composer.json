@@ -9,10 +9,10 @@
     },
     "require": {
         "cakedc/migrations":            "~2.2",
-        "netcommons/m17n":              "dev-master",
-        "netcommons/control-panel":     "dev-master",
-        "netcommons/net-commons":       "dev-master",
-        "netcommons/plugin-manager":    "dev-master"
+        "netcommons/m17n":              "@dev",
+        "netcommons/control-panel":     "@dev",
+        "netcommons/net-commons":       "@dev",
+        "netcommons/plugin-manager":    "@dev"
     },
     "license": "NetCommons License",
     "authors": [
