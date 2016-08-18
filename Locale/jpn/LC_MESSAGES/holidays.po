@@ -154,8 +154,8 @@ msgstr "削除しました。"
 msgid "Please input the end year is bigger than start year."
 msgstr "終了年は、開始年より大きい値を入力してください。"
 
-msgid "You can add, edit, and delete the holiday of %s year."
-msgstr "%s年の祝日を追加・編集・削除することができます。"
+msgid "You can add, edit, and delete the holiday."
+msgstr "祝日を追加・編集・削除することができます。"
 
 
 msgid "Sun"

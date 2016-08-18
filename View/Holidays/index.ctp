@@ -21,7 +21,7 @@ echo $this->NetCommonsHtml->css(array(
 <div ng-controller="Holidays" ng-init="initialize(<?php echo $targetYear; ?>)">
 	<?php
 		echo $this->MessageFlash->description(
-			__d('holidays', 'You can add, edit, and delete the holiday of %s year.', $targetYear)
+			__d('holidays', 'You can add, edit, and delete the holiday.')
 		);
 	?>
 
