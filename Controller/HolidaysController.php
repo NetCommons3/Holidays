@@ -116,7 +116,7 @@ class HolidaysController extends HolidaysAppController {
 		// 新規登録画面表示
 		$this->request->data = $data;
 
-		$lang = $this->Language->find('all');
+		$lang = $this->Language->getLanguage();
 		$langIds = Hash::combine($lang, '{n}.Language.id', '{n}.Language.id');
 
 		foreach ($langIds as $langId) {
