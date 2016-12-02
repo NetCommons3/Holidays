@@ -1,0 +1,204 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Holidays/Controller/HolidaysController.php:206
+msgid "Successfully deleted."
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:52
+msgid "First week"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:53
+msgid "Second week"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:54
+msgid "Third week"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:55
+msgid "Fourth week"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:56
+msgid "Last week"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:67
+msgid "Sunday"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:68
+msgid "Monday"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:69
+msgid "Tuesday"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:70
+msgid "Wednesday"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:71
+msgid "Thursday"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:72
+msgid "Friday"
+msgstr ""
+
+#: Holidays/Controller/Component/HolidaysComponent.php:73
+msgid "Saturday"
+msgstr ""
+
+#: Holidays/Model/Holiday.php:211
+#: Holidays/Test/Case/Model/Holiday/SaveHolidayTest.php:145
+#: Holidays/Test/Case/Model/HolidayRrule/SaveHolidayRruleTest.php:190
+msgid "Please input title."
+msgstr ""
+
+#: Holidays/Model/HolidayRrule.php:148
+msgid "Please input the end year is bigger than start year."
+msgstr ""
+
+#: Holidays/Test/Case/Controller/HolidaysController/IndexTest.php:194
+#: Holidays/View/Holidays/index.ctp:111
+msgid "No holiday"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:12
+msgid "January"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:13
+msgid "February"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:14
+msgid "March"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:15
+msgid "April"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:16
+msgid "May"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:17
+msgid "June"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:18
+msgid "July"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:19
+msgid "August"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:20
+msgid "September"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:21
+msgid "October"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:22
+msgid "November"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:23
+msgid "December"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:26
+msgid "day"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:31
+#: Holidays/View/Holidays/index.ctp:60
+msgid "holiday specification type"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:36
+#: Holidays/View/Holidays/index.ctp:100
+msgid "Date fixed"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:48;98
+msgid "month and day"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:75
+#: Holidays/View/Elements/Holidays/holiday_type.ctp:26
+msgid "In the case of Sunday, it will be with the next weekday transfer holiday"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:85
+#: Holidays/View/Holidays/index.ctp:98
+msgid "Specified week and day of the week"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/range.ctp:15
+msgid "Specified target range"
+msgstr ""
+
+#: Holidays/View/Elements/HolidayRrules/title.ctp:27
+#: Holidays/View/Holidays/index.ctp:59
+msgid "title"
+msgstr ""
+
+#: Holidays/View/Elements/Holidays/year_picker.ctp:13
+msgid "%s year"
+msgstr ""
+
+#: Holidays/View/Holidays/index.ctp:24
+msgid "You can add, edit, and delete the holiday."
+msgstr ""
+
+#: Holidays/View/Holidays/index.ctp:48
+msgid "Create holiday"
+msgstr ""
+
+#: Holidays/View/Holidays/index.ctp:58
+msgid "date"
+msgstr ""
+
+#: Holidays/View/Holidays/index.ctp:75
+msgid "Sun"
+msgstr ""
+
+msgid "Mon"
+msgstr ""
+
+msgid "Tue"
+msgstr ""
+
+msgid "Wed"
+msgstr ""
+
+msgid "Thu"
+msgstr ""
+
+msgid "Fri"
+msgstr ""
+
+msgid "Sat"
+msgstr ""
