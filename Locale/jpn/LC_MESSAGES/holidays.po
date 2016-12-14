@@ -15,160 +15,205 @@ msgstr ""
 "X-Generator: Poedit 1.8.6\n"
 "Language: ja\n"
 
-msgid "January"
-msgstr "1月"
-msgid "February"
-msgstr "2月"
-msgid "March"
-msgstr "3月"
-msgid "April"
-msgstr "4月"
-msgid "May"
-msgstr "5月"
-msgid "June"
-msgstr "6月"
-msgid "July"
-msgstr "7月"
-msgid "August"
-msgstr "8月"
-msgid "September"
-msgstr "9月"
-msgid "October"
-msgstr "10月"
-msgid "November"
-msgstr "11月"
-msgid "December"
-msgstr "12月"
-
-#: /Controller/Component/HolidaysComponent.php:52
-msgid "First week"
-msgstr "第1週"
-
-#: /Controller/Component/HolidaysComponent.php:53
-msgid "Second week"
-msgstr "第2週"
-
-#: /Controller/Component/HolidaysComponent.php:54
-msgid "Third week"
-msgstr "第3週"
-
-#: /Controller/Component/HolidaysComponent.php:55
-msgid "Fourth week"
-msgstr "第4週"
-
-#: /Controller/Component/HolidaysComponent.php:56
-msgid "Last week"
-msgstr "最終週"
-
-#: /Controller/Component/HolidaysComponent.php:67
-msgid "Sunday"
-msgstr "日曜日"
-
-#: /Controller/Component/HolidaysComponent.php:68
-msgid "Monday"
-msgstr "月曜日"
-
-#: /Controller/Component/HolidaysComponent.php:69
-msgid "Tuesday"
-msgstr "火曜日"
-
-#: /Controller/Component/HolidaysComponent.php:70
-msgid "Wednesday"
-msgstr "水曜日"
-
-#: /Controller/Component/HolidaysComponent.php:71
-msgid "Thursday"
-msgstr "木曜日"
-
-#: /Controller/Component/HolidaysComponent.php:72
-msgid "Friday"
-msgstr "金曜日"
-
-#: /Controller/Component/HolidaysComponent.php:73
-msgid "Saturday"
-msgstr "土曜日"
-
-#: /Model/Holiday.php:211 /Test/Case/Model/Holiday/SaveHolidayTest.php:145
-msgid "Please input title."
-msgstr "名称を入力してください。(英語、日本語ともに入力必須です。)"
-
-#: /View/Elements/HolidayRrules/is_variable.ctp:14
-msgid "holiday specification type"
-msgstr "祝日タイプ"
-
-#: /View/Elements/HolidayRrules/is_variable.ctp:30
-msgid "Date fixed"
-msgstr "月日指定"
-
-#: /View/Elements/HolidayRrules/is_variable.ctp:44
-msgid "Specified week and day of the week"
-msgstr "週・曜日指定"
-
-#: /View/Elements/HolidayRrules/is_variable.ctp:55
-msgid "month and day"
-msgstr "月/日"
-msgid "month"
-msgstr "月"
-msgid "day"
-msgstr "日"
-
-#: /View/Elements/HolidayRrules/is_variable.ctp:74
-msgid "In the case of Sunday, it will be with the next weekday transfer holiday"
-msgstr "日曜日の場合、次の平日を振替休日とする。"
-
-#: /View/Elements/HolidayRrules/range.ctp:14
-msgid "Specified target range"
-msgstr "設定する年の範囲"
-
-#: /View/Elements/HolidayRrules/range.ctp:24
-msgid "-"
-msgstr ""
-
-#: /View/Elements/HolidayRrules/title.ctp:27 /View/Holidays/index.ctp:26
-msgid "title"
-msgstr "祝日名"
-
-#: /View/Elements/Holidays/add_button.ctp:19
-msgid "Create holiday"
-msgstr "追加"
-
-#: /View/Elements/Holidays/year_select.ctp:13
-msgid "Year"
-msgstr "年"
-
-#: /View/Elements/Holidays/year_select.ctp:13
-msgid "%s year"
-msgstr "%s年"
-
-#: /View/Holidays/index.ctp:25
-msgid "date"
-msgstr "日付"
-
-#: /View/Holidays/index.ctp:31
-msgid "No holiday"
-msgstr "祝日はありません。"
-
+#: Holidays/Controller/HolidaysController.php:206
 msgid "Successfully deleted."
 msgstr "削除しました。"
 
+#: Holidays/Controller/Component/HolidaysComponent.php:52
+msgid "First week"
+msgstr "第1週"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:53
+msgid "Second week"
+msgstr "第2週"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:54
+msgid "Third week"
+msgstr "第3週"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:55
+msgid "Fourth week"
+msgstr "第4週"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:56
+msgid "Last week"
+msgstr "最終週"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:67
+msgid "Sunday"
+msgstr "日曜日"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:68
+msgid "Monday"
+msgstr "月曜日"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:69
+msgid "Tuesday"
+msgstr "火曜日"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:70
+msgid "Wednesday"
+msgstr "水曜日"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:71
+msgid "Thursday"
+msgstr "木曜日"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:72
+msgid "Friday"
+msgstr "金曜日"
+
+#: Holidays/Controller/Component/HolidaysComponent.php:73
+msgid "Saturday"
+msgstr "土曜日"
+
+#: Holidays/Model/Holiday.php:211
+#: Holidays/Test/Case/Model/Holiday/SaveHolidayTest.php:145
+#: Holidays/Test/Case/Model/HolidayRrule/SaveHolidayRruleTest.php:190
+msgid "Please input title."
+msgstr "名称を入力してください。(英語、日本語ともに入力必須です。)"
+
+#: Holidays/Model/HolidayRrule.php:148
 msgid "Please input the end year is bigger than start year."
 msgstr "終了年は、開始年より大きい値を入力してください。"
 
+#: Holidays/Test/Case/Controller/HolidaysController/IndexTest.php:194
+#: Holidays/View/Holidays/index.ctp:111
+msgid "No holiday"
+msgstr "祝日はありません。"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:12
+msgid "January"
+msgstr "1月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:13
+msgid "February"
+msgstr "2月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:14
+msgid "March"
+msgstr "3月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:15
+msgid "April"
+msgstr "4月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:16
+msgid "May"
+msgstr "5月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:17
+msgid "June"
+msgstr "6月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:18
+msgid "July"
+msgstr "7月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:19
+msgid "August"
+msgstr "8月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:20
+msgid "September"
+msgstr "9月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:21
+msgid "October"
+msgstr "10月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:22
+msgid "November"
+msgstr "11月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:23
+msgid "December"
+msgstr "12月"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:26
+msgid "day"
+msgstr "日"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:31
+#: Holidays/View/Holidays/index.ctp:60
+msgid "holiday specification type"
+msgstr "祝日タイプ"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:36
+#: Holidays/View/Holidays/index.ctp:100
+msgid "Date fixed"
+msgstr "月日指定"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:48;98
+msgid "month and day"
+msgstr "月/日"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:75
+#: Holidays/View/Elements/Holidays/holiday_type.ctp:26
+msgid "In the case of Sunday, it will be with the next weekday transfer holiday"
+msgstr "日曜日の場合、次の平日を振替休日とする。"
+
+#: Holidays/View/Elements/HolidayRrules/is_variable.ctp:85
+#: Holidays/View/Holidays/index.ctp:98
+msgid "Specified week and day of the week"
+msgstr "週・曜日指定"
+
+#: Holidays/View/Elements/HolidayRrules/range.ctp:15
+msgid "Specified target range"
+msgstr "設定する年の範囲"
+
+#: Holidays/View/Elements/HolidayRrules/title.ctp:27
+#: Holidays/View/Holidays/index.ctp:59
+msgid "title"
+msgstr "祝日名"
+
+#: Holidays/View/Elements/Holidays/year_picker.ctp:13
+msgid "%s year"
+msgstr "%s年"
+
+#: Holidays/View/Holidays/index.ctp:24
 msgid "You can add, edit, and delete the holiday."
 msgstr "祝日を追加・編集・削除することができます。"
 
+#: Holidays/View/Holidays/index.ctp:48
+msgid "Create holiday"
+msgstr "追加"
 
+#: Holidays/View/Holidays/index.ctp:58
+msgid "date"
+msgstr "日付"
+
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Sun"
 msgstr "日"
+
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Mon"
 msgstr "月"
+
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Tue"
 msgstr "火"
+
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Wed"
 msgstr "水"
+
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Thu"
 msgstr "木"
+
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Fri"
 msgstr "金"
+
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Sat"
 msgstr "土"

@@ -181,24 +181,37 @@ msgstr ""
 msgid "date"
 msgstr ""
 
+# 下記の項目は、i18nでセットされない
 #: Holidays/View/Holidays/index.ctp:75
 msgid "Sun"
 msgstr ""
 
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Mon"
 msgstr ""
 
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Tue"
 msgstr ""
 
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Wed"
 msgstr ""
 
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Thu"
 msgstr ""
 
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Fri"
 msgstr ""
 
+# 下記の項目は、i18nでセットされない
+#: Holidays/View/Holidays/index.ctp:75
 msgid "Sat"
 msgstr ""
