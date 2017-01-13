@@ -52,6 +52,7 @@ class PluginRecords extends NetCommonsMigration {
 				'default_action' => 'holidays/index',
 				'default_setting_action' => '',
 				'weight' => 5,
+				'is_m17n' => null,
 			),
 			//英語
 			array(
@@ -63,6 +64,7 @@ class PluginRecords extends NetCommonsMigration {
 				'default_action' => 'holidays/index',
 				'default_setting_action' => '',
 				'weight' => 5,
+				'is_m17n' => null,
 			),
 		),
 		'PluginsRole' => array(
