@@ -25,7 +25,6 @@ class Holiday extends HolidaysAppModel {
  */
 	public $actsAs = array(
 		'NetCommons.OriginalKey',
-		'M17n.M17n',
 	);
 
 /**
