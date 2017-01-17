@@ -82,7 +82,7 @@ class HolidaysSchema extends CakeSchema {
 		'language_id' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 6, 'unsigned' => false, 'comment' => '言語ID'),
 		'is_origin' => array('type' => 'boolean', 'null' => false, 'default' => '1', 'comment' => 'オリジナルかどうか'),
 		'is_translation' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => '翻訳したかどうか'),
-		'key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'is_original_copy' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => 'オリジナルのコピー。言語を新たに追加したときに使用する'),
 		'holiday' => array('type' => 'date', 'null' => false, 'default' => null, 'key' => 'index'),
 		'title' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '祝日名称', 'charset' => 'utf8'),
 		'is_substitute' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => '0:振替ではない,1:振替休日'),
