@@ -25,6 +25,11 @@ class Holiday extends HolidaysAppModel {
  */
 	public $actsAs = array(
 		'NetCommons.OriginalKey',
+		//多言語
+		'M17n.M17n' => array(
+			'keyField' => 'holiday_rrule_id',
+			'commonFields' => array('is_substitute')
+		),
 	);
 
 /**
@@ -43,14 +48,14 @@ class Holiday extends HolidaysAppModel {
  */
 	public $belongsTo = array(
 		'HolidayRrule' => array(
-			'className' => 'HolidayRrule',
+			'className' => 'Holidays.HolidayRrule',
 			'foreignKey' => 'holiday_rrule_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
 		'Language' => array(
-			'className' => 'Language',
+			'className' => 'M17n.Language',
 			'foreignKey' => 'language_id',
 			'conditions' => '',
 			'fields' => '',

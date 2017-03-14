@@ -35,7 +35,7 @@ class HolidayRrule extends HolidaysAppModel {
  */
 	public $hasMany = array(
 		'Holiday' => array(
-			'className' => 'Holiday',
+			'className' => 'Holidays.Holiday',
 			'foreignKey' => 'holiday_rrule_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -388,24 +388,30 @@ class HolidayRrule extends HolidaysAppModel {
  * @return string
  */
 	protected function _getSubstitute($holiday) {
-		list($year, $month, $day) = explode('-', $holiday[1]['holiday']);
+		$sHoliday = Hash::extract($holiday, '{n}.holiday')[0];
+
+		list($year, $month, $day) = explode('-', $sHoliday);
 
 		$timestamp = mktime(0, 0, 0, $month, $day, $year);
-		$wday = date("w", $timestamp);
-		$date = $holiday[1]['holiday'];
+		$wday = date('w', $timestamp);
+		$date = $sHoliday;
 		$substitute = array();
 		if ($wday == 0) { //日曜日
-			$substitute = $holiday;
-			$substitute[1]['title'] = 'substitute holiday'; // タイトル（英語）
-			$substitute[2]['title'] = '(振替休日)'; // タイトル（日本語）
-
-			$substitute[1]['is_substitute'] = true; // 振替休日（英語）
-			$substitute[2]['is_substitute'] = true; // 振替休日（日本語）
-
+			$substitutes = $holiday;
 			$nextDay = strtotime($date . '+1 day');
-			$substitute[1]['holiday'] = strftime('%Y/%m/%d', $nextDay); // +1日(yyyy-mm-dd)
-			$substitute[2]['holiday'] = strftime('%Y/%m/%d', $nextDay); // +1日(yyyy-mm-dd)
-			return $substitute;
+			foreach ($substitutes as $i => $substitute) {
+				if ($i === 2) {
+					$title = '(振替休日)'; // タイトル（日本語）
+				} else {
+					$title = 'substitute holiday'; // タイトル（英語）
+				}
+				$substitute['title'] = $title; // タイトル
+				$substitute['is_substitute'] = true; // 振替休日
+				$substitute['holiday'] = strftime('%Y/%m/%d', $nextDay); // +1日(yyyy-mm-dd)
+
+				$substitutes[$i] = $substitute;
+			}
+			return $substitutes;
 		} else {
 			return null;
 		}
