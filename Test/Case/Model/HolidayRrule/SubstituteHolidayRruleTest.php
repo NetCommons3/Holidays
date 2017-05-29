@@ -20,7 +20,7 @@ App::uses('NetCommonsModelTestCase', 'NetCommons.TestSuite');
  * @author Allcreator <info@allcreator.net>
  * @package NetCommons\Holidays\Test\Case\Model\HolidayRrule
  */
-class HolidayRruleSubstituteTest extends NetCommonsModelTestCase {
+class HolidayRruleSubstituteHolidayRruleTest extends NetCommonsModelTestCase {
 
 /**
  * Plugin name
