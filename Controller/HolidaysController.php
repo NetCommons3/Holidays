@@ -42,7 +42,7 @@ class HolidaysController extends HolidaysAppController {
 		),
 		'Holidays.Holidays',
 		'NetCommons.Permission' => array(
-			'type' => PermissionComponent::CHECK_TYEP_SYSTEM_PLUGIN,
+			'type' => PermissionComponent::CHECK_TYPE_SYSTEM_PLUGIN,
 			'allow' => array()
 		),
 	);
