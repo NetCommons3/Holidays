@@ -25,6 +25,7 @@ class Holiday extends HolidaysAppModel {
  */
 	public $actsAs = array(
 		'NetCommons.OriginalKey',
+		'NetCommons.NetCommonsCache',
 		//多言語
 		'M17n.M17n' => array(
 			'keyField' => 'holiday_rrule_id',
@@ -91,7 +92,7 @@ class Holiday extends HolidaysAppModel {
  * @return array期間内のholidayテーブルのデータ配列が返る
  */
 	public function getHoliday($from, $to) {
-		$holidays = $this->find('all', array(
+		$holidays = $this->cacheFindQuery('all', array(
 			'conditions' => array(
 				'language_id' => Current::read('Language.id'),
 				'holiday >=' => $from,
