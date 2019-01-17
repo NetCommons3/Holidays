@@ -43,6 +43,11 @@ NetCommonsApp.controller('Holidays.edit',
          * @return {void}
          */
         $scope.initialize = function(holidayRrule) {
+          if (holidayRrule.holidayRrule.isVariable == true) {
+            holidayRrule.holidayRrule.isVariable = '1';
+          } else {
+            holidayRrule.holidayRrule.isVariable = '0';
+          }
           $scope.holidayRrule = holidayRrule.holidayRrule;
           $scope.holidayRrule.startYear =
               $scope.holidayRrule.startYear.toString(10);
