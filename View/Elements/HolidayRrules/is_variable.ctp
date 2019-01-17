@@ -36,6 +36,8 @@ for ($i = 1; $i <= 31; $i++) {
 				array(HolidaysAppController::HOLIDAYS_FIXED => __d('holidays', 'Date fixed')),
 				array(
 					'ng-model' => 'holidayRrule.isVariable',
+					'ng-false-value' => '"' . HolidaysAppController::HOLIDAYS_VARIABLE . '"',
+					'ng-true-value' => '"' . HolidaysAppController::HOLIDAYS_FIXED . '"'
 				)
 			);
 		?>
@@ -85,6 +87,8 @@ for ($i = 1; $i <= 31; $i++) {
 				array(HolidaysAppController::HOLIDAYS_VARIABLE => __d('holidays', 'Specified week and day of the week')),
 				array(
 					'ng-model' => 'holidayRrule.isVariable',
+					'ng-false-value' => '"' . HolidaysAppController::HOLIDAYS_FIXED . '"',
+					'ng-true-value' => '"' . HolidaysAppController::HOLIDAYS_VARIABLE . '"'
 				)
 			);
 		?>
