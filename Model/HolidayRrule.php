@@ -88,7 +88,7 @@ class HolidayRrule extends HolidaysAppModel {
  * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
  */
 	public function beforeValidate($options = array()) {
-		$this->validate = Hash::merge($this->validate, array(
+		$this->validate = ValidateMerge::merge($this->validate, array(
 			'is_variable' => array(
 				'boolean' => array(
 					'rule' => array('boolean'),
