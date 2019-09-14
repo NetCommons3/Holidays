@@ -11,6 +11,7 @@
 
 App::uses('HolidaysAppModel', 'Holidays.Model');
 App::uses('HolidaysAppController', 'Holidays.Controller');
+App::uses('HolidaysComponent', 'Holidays.Controller/Component');
 
 /**
  * Holiday Model
@@ -179,6 +180,7 @@ class HolidayRrule extends HolidaysAppModel {
 		$this->loadModels([
 			'Holiday' => 'Holidays.Holiday',
 		]);
+		$this->Holiday->Behaviors->disable('M17n.M17n');
 
 		// SetされているPostデータを整える
 		// 月日入力はCakeの仕様のため、month, day に分割されてしまっているので
@@ -220,6 +222,7 @@ class HolidayRrule extends HolidaysAppModel {
 			}
 			// 以前の祝日データを削除
 			$this->Holiday->deleteAll(array('holiday_rrule_id' => $rRuleId), false, true);
+
 			// Rruleから実際の日付配列を取得
 			$days = $this->_getDays($data[$this->alias], $orgStartYear, $orgEndYear);
 			// 取得した日付の数分Holidayを登録
@@ -245,6 +248,8 @@ class HolidayRrule extends HolidaysAppModel {
 			CakeLog::error($ex);
 			return false;
 		}
+
+		$this->Holiday->Behaviors->enable('M17n.M17n');
 		return true;
 	}
 
