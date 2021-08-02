@@ -79,6 +79,7 @@ class UpdateReiwa2 extends NetCommonsMigration {
  * 海の日の更新
  *
  * @return void
+ * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
  */
 	private function __updateMarineDayHoliday() {
 		$params = [
@@ -194,6 +195,7 @@ class UpdateReiwa2 extends NetCommonsMigration {
  * 山の日の更新
  *
  * @return void
+ * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
  */
 	private function __updateMountainDayHoliday() {
 		$params = [
@@ -309,6 +311,7 @@ class UpdateReiwa2 extends NetCommonsMigration {
  * 体育の日⇒スポーツの日に更新
  *
  * @return void
+ * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
  */
 	private function __updateSportsDayHoliday() {
 		$params = [
