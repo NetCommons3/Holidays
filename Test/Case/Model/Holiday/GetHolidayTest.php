@@ -35,6 +35,7 @@ class HolidayGetHolidayTest extends NetCommonsGetTest {
  */
 	public $fixtures = array(
 		'plugin.holidays.holiday',
+		'plugin.holidays.holiday_rrule',
 	);
 
 /**
