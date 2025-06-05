@@ -93,12 +93,17 @@ class Holiday extends HolidaysAppModel {
  */
 	public function getHoliday($from, $to) {
 		$holidays = $this->cacheFindQuery('all', array(
+			'fields' => array(
+				'Holiday.id',
+				'Holiday.holiday',
+				'Holiday.title'
+			),
 			'conditions' => array(
 				'language_id' => Current::read('Language.id'),
 				'holiday >=' => $from,
 				'holiday <=' => $to
 			),
-			'recursive' => 0,
+			'recursive' => -1,
 			'order' => array('holiday')
 		));
 		return $holidays;
@@ -120,7 +125,15 @@ class Holiday extends HolidaysAppModel {
 		}
 		$from = $year . '-01-01';
 		$to = $year . '-12-31';
-		$holidays = $this->getHoliday($from, $to);
+		$holidays = $this->Find('all', array(
+			'conditions' => array(
+				'language_id' => Current::read('Language.id'),
+				'holiday >=' => $from,
+				'holiday <=' => $to
+			),
+			'recursive' => 0,
+			'order' => array('holiday')
+		));
 		return $holidays;
 	}
 
